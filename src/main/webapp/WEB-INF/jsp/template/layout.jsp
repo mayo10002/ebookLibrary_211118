@@ -16,13 +16,13 @@
 </head>
 <body>
 	<div id="wrap">
-		<header>
+		<header class="bg-secondary">
 			<jsp:include page="../include/gnb.jsp" /> 
 		</header>
-		<section class="contents">
+		<section class="contents bg-white">
 			<jsp:include page="../${viewName}.jsp" />
 		</section>
-		<footer>
+		<footer class="bg-secondary">
 			<jsp:include page="../include/footer.jsp" />
 		</footer>
 	</div>
