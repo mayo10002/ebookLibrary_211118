@@ -8,10 +8,9 @@
 		<input type="text" id="searchText" class="form-control border-0 ml-5" placeholder="검색어를 입력하세요.">
 		<button type="button" id="searchBtn" class="btn btn-light">검색</button>
 	</div>
-	<div id="emptyUserBox" class="mr-2"></div>
-	<%-- <c:if test="${empty userName">	
+	<c:if test="${empty userName}">
 		<div id="emptyUserBox" class="mr-2"></div>
-	</c:if> --%>
+	</c:if>
 	<c:if test="${not empty userName}">
 	<div class="user-info d-flex">
 		<a href=""><img src="https://www.iconninja.com/files/373/816/921/setting-icon.png" alt="환경설정" width="30" height="30" class="mr-3"></a>

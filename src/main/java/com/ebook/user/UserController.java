@@ -1,5 +1,8 @@
 package com.ebook.user;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,5 +29,15 @@ public class UserController {
 	public String signInView(Model model) {
 		model.addAttribute("viewName","user/sign_in");
 		return "template/layout";
+	}
+	@RequestMapping("/sign_out")
+	public String signOut(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		// 로그아웃 할 때 세션에 있는 모든 것들을 비운다.
+		session.removeAttribute("userId");
+		session.removeAttribute("userLoginId");
+		session.removeAttribute("userName");
+		session.removeAttribute("userPhoneNumber");
+		return "redirect:/user/sign_in_view";
 	}
 }

@@ -55,7 +55,8 @@ $(document).ready(function(){
 			,data:{"loginId":loginId, "password":password}
 			,success : function(data){
 				if(data.result == "success"){
-					alert("성공");
+					// alert("성공");
+					location.href = "/book/main_view";
 				}
 			}
 			,error : function(data){

@@ -3,6 +3,9 @@ package com.ebook.user;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ebook.common.EncryptUtils;
 import com.ebook.user.bo.UserBO;
+import com.ebook.user.model.User;
 
 @RequestMapping("/user")
 @RestController
@@ -19,10 +23,22 @@ public class UserRestController {
 	private UserBO userBO;
 	@RequestMapping("/is_duplicated_id")
 	public Map<String, Boolean> isDuplicatedId(
-			@RequestParam("loginId") String loginId){
-		Map<String, Boolean> result = new HashMap<>();
+			@RequestParam("loginId") String loginId,
+			HttpServletRequest request){
 		
-		result.put("result", userBO.existUserByLoginId(loginId));
+		Map<String, Boolean> result = new HashMap<>();
+		HttpSession session = request.getSession();
+		//로그인 상태일 시 회원 정보를 수정할 때 중복확인에서 자신의 아이디는 중복되어도 괜찮다.
+		if(session != null) {
+			String userLoginId = (String)session.getAttribute("loginId");
+			if(loginId == userLoginId) {
+				result.put("result", false);
+			}else {
+				result.put("result", userBO.existUserByLoginId(loginId));
+			}
+		}else {
+			result.put("result", userBO.existUserByLoginId(loginId));
+		}
 		return result;
 	} 
 	@PostMapping("/sign_up")
@@ -46,8 +62,42 @@ public class UserRestController {
 		
 		return result;
 	}
-//	@PostMapping("/sign_in")
-//	public Map<String, Object> signIn(){
-//		
-//	}
+	
+	//로그인
+	@PostMapping("/sign_in")
+	public Map<String, Object> signIn(
+			@RequestParam("loginId")String loginId,
+			@RequestParam("password")String password,
+			HttpServletRequest request){
+		String encryptPassword = EncryptUtils.md5(password);
+		
+		Map<String, Object> result = new HashMap<>();
+		
+		User user = userBO.getUserByLoginIdAndPassword(loginId, encryptPassword);
+		if(user != null) {
+			result.put("result", "success");
+					
+			HttpSession session = request.getSession();			
+			session.setAttribute("userId", user.getId());
+			session.setAttribute("userLoginId", user.getLoginId());
+			session.setAttribute("userName", user.getName());
+			session.setAttribute("userPhoneNumber", user.getPhoneNumber());
+		}else {
+			result.put("result", "error");
+			result.put("error_message", "존재하지 않는 사용자입니다.");
+		}
+		
+		return result;
+	}
+	// 회원 정보 수정 용 비밀번호 확인
+	public Map<String, Boolean> confirmPassword(
+			@RequestParam("password") String password,
+			HttpServletRequest request){
+		String encryptPassword = EncryptUtils.md5(password);
+		Map<String, Boolean> result = new HashMap<>();
+		HttpSession session = request.getSession();
+		int userId = (int)session.getAttribute("userId");
+		result.put("result", userBO.confirmPasswordByUserId(userId, encryptPassword));
+		return result;
+	}
 }
