@@ -58,4 +58,14 @@ SELECT
  	`loginId` = #{loginId}
  	AND `password` = #{password}
 </select>
+<update id="updateUserByUserId" parameterType="map">
+UPDATE 
+	`user`
+SET 
+	`loginId` = #{loginId}
+	,`name` = #{name}
+	,`phoneNumber` = #{phoneNumber}
+WHERE 
+	`id` = #{id}
+</update>
 </mapper>

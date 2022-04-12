@@ -40,4 +40,9 @@ public class UserController {
 		session.removeAttribute("userPhoneNumber");
 		return "redirect:/user/sign_in_view";
 	}
+	@RequestMapping("/edit_view")
+	public String userEditView(Model model) {
+		model.addAttribute("viewName","user/edit");
+		return "template/layout";
+	}
 }

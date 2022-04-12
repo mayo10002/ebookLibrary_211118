@@ -45,7 +45,10 @@
       		<div class="d-flex justify-content-center p-5">
       			<div>
       				<input type="password" id="password" class="w-50" placeholder="현재 사용중인 비밀번호를 입력하세요.">
-      				<button type="button" id="editBtn" class="btn btn-primary my-4">수정하기</button>
+      				<div class="d-flex justify-content-center my-4">
+      					<button type="button" class="btn btn-secondary mr-3" data-dismiss="modal">뒤로가기</button>
+      					<button type="button" id="editBtn" class="btn btn-primary">수정하기</button>
+      				</div>
       			</div>
       		</div>
 		</div>
@@ -87,9 +90,40 @@ $(document).ready(function(){
 	});
 	$('#passwordConfirmBtn').on('click',function(e){
 		// data를 이쪽에 다시 넣어줘야 한다.
+		let loginId = $('#loginId').val().trim();
+		if(loginId == ''){
+			alert('아이디를 입력해주세요.');
+			return;
+		}
+		let name = $('#name').val().trim();
+		if(name == ''){
+			alert('이름을 입력해주세요.');
+			return;
+		}
+		let phoneNumber = $('#phoneNumber').val().trim();
+		if  (phoneNumber == ''){
+			alert('전화번호를 입력해주세요.');
+			return;
+		}
 	});
-	$('#editBtn').on('click',function(e){
-		// 넘겨야 한다.
-	})
+	$('#editConfirmModal #editBtn').on('click',function(e){
+		let loginId = $('#loginId').val().trim();
+		let name = $('#name').val().trim();
+		let phoneNumber = $('#phoneNumber').val().trim();
+		let password = $('#password').val();
+		
+		$.ajax({
+			url:"/user/password_is_correct"
+			,data:{"password":password}
+			,success:function(data){
+				if(data.result){
+					//여기에 다른 ajax를 실행시키고 싶은데
+				}else{
+					alert('사용자의 비밀번호가 일치하지 않습니다.');
+				}
+			}
+			
+		});
+	});
 });
 </script>

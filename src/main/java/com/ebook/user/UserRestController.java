@@ -90,6 +90,7 @@ public class UserRestController {
 		return result;
 	}
 	// 회원 정보 수정 용 비밀번호 확인
+	@RequestMapping("/password_is_correct")
 	public Map<String, Boolean> confirmPassword(
 			@RequestParam("password") String password,
 			HttpServletRequest request){
@@ -99,5 +100,19 @@ public class UserRestController {
 		int userId = (int)session.getAttribute("userId");
 		result.put("result", userBO.confirmPasswordByUserId(userId, encryptPassword));
 		return result;
+	}
+	//회원 정보 변경
+	@PostMapping("/update_user")
+	public Map<String, Object> updateUser(
+			@RequestParam("loginId")String loginId,
+			@RequestParam("name")String name,
+			@RequestParam("phoneNumber")String phoneNumber,
+			HttpServletRequest request){
+		HttpSession session = request.getSession();
+		int userId = (int)session.getAttribute("userId");
+		Map<String, Object> result = new HashMap<>();
+		userBO.editUserByUserId(userId, loginId, name, phoneNumber);
+		
+		
 	}
 }

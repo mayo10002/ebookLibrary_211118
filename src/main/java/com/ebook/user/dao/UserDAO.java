@@ -18,4 +18,9 @@ public interface UserDAO {
 	public User selectUserByLoginIdAndPassword(
 			@Param("loginId")String loginId, 
 			@Param("password")String password);
+	public void updateUserByUserId(
+			@Param("id")int id, 
+			@Param("loginId")String loginId,
+			@Param("name")String name,
+			@Param("phoneNumber")String phoneNumber);
 }

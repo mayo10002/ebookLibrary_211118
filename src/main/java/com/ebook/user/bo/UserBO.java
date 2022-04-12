@@ -11,8 +11,8 @@ public class UserBO {
 	@Autowired
 	private UserDAO userDAO;
 	
-	public User getUser(int userid) {
-		return userDAO.selectUser(userid);
+	public User getUser(int userId) {
+		return userDAO.selectUser(userId);
 	}
 	public boolean existUserByLoginId(String loginId) {
 		return userDAO.existUserByLoginId(loginId);
@@ -30,7 +30,7 @@ public class UserBO {
 			return false;
 		}
 	}
-//	public User editUser(String loginId, String name, String phoneNumber) {
-//		
-//	}
+	public void editUserByUserId(int userId, String loginId, String name, String phoneNumber) {
+		userDAO.updateUserByUserId(userId, loginId, name, phoneNumber);
+	}
 }
