@@ -16,6 +16,8 @@
 	
 	FROM
 		`user`
+	WHERE
+		`id` = #{id}
 </select>
 <select id="existUserByLoginId" parameterType="String" resultType="boolean">
 SELECT COUNT(1)

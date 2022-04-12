@@ -66,7 +66,6 @@ $(document).ready(function(){
 		$('#idCheckLength').addClass('d-none');
 		$('#idCheckDuplicated').addClass('d-none');
 		$('#idCheckOk').addClass('d-none');
-		
 		if(loginId.length < 4) {
 			$('#idCheckLength').removeClass('d-none');
 			return;
@@ -89,7 +88,7 @@ $(document).ready(function(){
 		});
 	});
 	$('#passwordConfirmBtn').on('click',function(e){
-		// data를 이쪽에 다시 넣어줘야 한다.
+		e.preventDefault();
 		let loginId = $('#loginId').val().trim();
 		if(loginId == ''){
 			alert('아이디를 입력해주세요.');
@@ -105,29 +104,40 @@ $(document).ready(function(){
 			alert('전화번호를 입력해주세요.');
 			return;
 		}
+		
+		
+		
 		if($('#idCheckOk').hasClass('d-none')){
 			alert('id 중복확인을 다시 해주세요.');
 			return;
 		}
+		
+		
 	});
-	$('#editConfirmModal #editBtn').on('click',function(e){
-		alert("클릭");
+	$('#editConfirmModal #editBtn').on('click',function(){
+		
 		let loginId = $('#loginId').val().trim();
 		let name = $('#name').val().trim();
 		let phoneNumber = $('#phoneNumber').val().trim();
 		let password = $('#password').val();
+		console.log(loginId);
+		console.log(name);
+		console.log(phoneNumber);
 		
+		let formData = new FormData();
 		formData.append("loginId" , loginId);
 		formData.append("password" , password);
 		formData.append("name" , name);
 		formData.append("phoneNumber" , phoneNumber);
-		
+		for (let pair of formData.entries()) {
+			  console.log(pair[0]+ ', ' + pair[1]);
+			}
 		if (password == ''){
 			alert("비밀번호를 입력해주세요.");
 			return;
 		}
 		$.ajax({
-			type:"post"
+			type:"put"
 			,url:"/user/update_user"
 			,data : formData
 			,contentType : false
@@ -135,8 +145,8 @@ $(document).ready(function(){
 		    ,success : function(data){
 		    	if(data.result == "success"){
 		    		
-		    		alert('회원정보가 성공적으로 수정되었습니다.');
-			    	location.href = "/book/main_view";
+		    		alert('회원정보가 성공적으로 수정되었습니다. 다시 한 번 로그인해주세요.');
+			    	location.href = "/user/sign_out";
 		    	}
 		    }
 			,error:function(data){

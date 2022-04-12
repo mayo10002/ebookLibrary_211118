@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -92,7 +93,7 @@ public class UserRestController {
 		return result;
 	}
 
-	@PostMapping("/update_user")
+	@RequestMapping("/update_user")
 	public Map<String, Object> updateUser(
 			@RequestParam("loginId")String loginId,
 			@RequestParam("password") String password,

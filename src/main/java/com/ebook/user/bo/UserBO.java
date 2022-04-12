@@ -24,7 +24,7 @@ public class UserBO {
 		return userDAO.selectUserByLoginIdAndPassword(loginId, password);
 	}
 	public boolean confirmPasswordByUserId(int userId, String password) {
-		if (password == userDAO.selectUser(userId).getPassword()) {
+		if (password.equals(getUser(userId).getPassword())) {
 			return true;
 		}else {
 			return false;

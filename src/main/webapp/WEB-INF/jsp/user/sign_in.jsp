@@ -48,7 +48,8 @@ $(document).ready(function(){
 		if(password == ''){
 			alert('패스워드를 입력해주세요.');
 		}
-		
+		console.log(loginId);
+		console.log(password);
 		$.ajax({
 			type:"post"
 			,url:"/user/sign_in"
@@ -59,10 +60,13 @@ $(document).ready(function(){
 					location.href = "/book/main_view";
 				}
 			}
-			,error : function(data){
-				alert("로그인에 실패했습니다. 관리자에게 문의해주세요.");
+			,error: function(data){
+				alert(data.error_message);
 			}
 		});
+	});
+	$('#signUpViewBtn').on('click',function(e){
+		location.href="/user/sign_up_view";
 	});
 });
 
