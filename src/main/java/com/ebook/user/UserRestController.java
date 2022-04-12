@@ -30,12 +30,14 @@ public class UserRestController {
 		HttpSession session = request.getSession();
 		//로그인 상태일 시 회원 정보를 수정할 때 중복확인에서 자신의 아이디는 중복되어도 괜찮다.
 		if(session != null) {
-			String userLoginId = (String)session.getAttribute("loginId");
-			if(loginId == userLoginId) {
+			String userLoginId = (String)session.getAttribute("userLoginId");
+			
+			if(loginId.equals(userLoginId)) {
 				result.put("result", false);
 			}else {
 				result.put("result", userBO.existUserByLoginId(loginId));
 			}
+		
 		}else {
 			result.put("result", userBO.existUserByLoginId(loginId));
 		}
@@ -89,30 +91,26 @@ public class UserRestController {
 		
 		return result;
 	}
-	// 회원 정보 수정 용 비밀번호 확인
-	@RequestMapping("/password_is_correct")
-	public Map<String, Boolean> confirmPassword(
-			@RequestParam("password") String password,
-			HttpServletRequest request){
-		String encryptPassword = EncryptUtils.md5(password);
-		Map<String, Boolean> result = new HashMap<>();
-		HttpSession session = request.getSession();
-		int userId = (int)session.getAttribute("userId");
-		result.put("result", userBO.confirmPasswordByUserId(userId, encryptPassword));
-		return result;
-	}
-	//회원 정보 변경
+
 	@PostMapping("/update_user")
 	public Map<String, Object> updateUser(
 			@RequestParam("loginId")String loginId,
+			@RequestParam("password") String password,
 			@RequestParam("name")String name,
 			@RequestParam("phoneNumber")String phoneNumber,
 			HttpServletRequest request){
 		HttpSession session = request.getSession();
-		int userId = (int)session.getAttribute("userId");
 		Map<String, Object> result = new HashMap<>();
-		userBO.editUserByUserId(userId, loginId, name, phoneNumber);
-		
-		
+		String encryptPassword = EncryptUtils.md5(password);
+		int userId = (int)session.getAttribute("userId");
+		if( userBO.confirmPasswordByUserId(userId, encryptPassword) == true) {
+			userBO.editUserByUserId(userId, loginId, name, phoneNumber);
+			result.put("result", "success");
+		}else {
+			result.put("result","error");
+			result.put("error_message", "비밀번호가 일치하지 않습니다.");
+		}
+		return result;
 	}
+
 }

@@ -29,9 +29,9 @@
 					<div class="sign-name-box"><span class="font-weight-bold mr-3">전화번호</span></div>
 					<input type="text" id="phoneNumber" class="py-1 w-50" placeholder="ex)010-0000-0000" value="${userPhoneNumber}">
 				</div>
-				<!-- 가입 버튼 -->
+				<!-- 비밀번호 확인 모달 진입 버튼 -->
 				<div class="d-flex justify-content-center pb-5 mr-5">
-					<button type="button" id="passwordConfirmBtn" class="btn btn-primary my-3 w-25" data-toggle="modal" data-target="editConfirmModal">수정하기</button>
+					<button type="button" id="passwordConfirmBtn" class="btn btn-primary my-3 w-25" data-toggle="modal" data-target="#editConfirmModal">수정하기</button>
 				</div>
 			</div>
 		</div>
@@ -44,7 +44,7 @@
 		<div class="modal-content">
       		<div class="d-flex justify-content-center p-5">
       			<div>
-      				<input type="password" id="password" class="w-50" placeholder="현재 사용중인 비밀번호를 입력하세요.">
+      				<input type="password" id="password" class="w-75 m-3" placeholder="현재 사용중인 비밀번호를 입력하세요.">
       				<div class="d-flex justify-content-center my-4">
       					<button type="button" class="btn btn-secondary mr-3" data-dismiss="modal">뒤로가기</button>
       					<button type="button" id="editBtn" class="btn btn-primary">수정하기</button>
@@ -76,7 +76,7 @@ $(document).ready(function(){
 			url:"/user/is_duplicated_id"
 			, data:{"loginId":loginId}
 			, success: function(data){
-				if(data.result){
+				if(data.result == true){
 					//w 중복인 경우
 					$('#idCheckDuplicated').removeClass('d-none');
 				}else {
@@ -105,22 +105,42 @@ $(document).ready(function(){
 			alert('전화번호를 입력해주세요.');
 			return;
 		}
+		if($('#idCheckOk').hasClass('d-none')){
+			alert('id 중복확인을 다시 해주세요.');
+			return;
+		}
 	});
 	$('#editConfirmModal #editBtn').on('click',function(e){
+		alert("클릭");
 		let loginId = $('#loginId').val().trim();
 		let name = $('#name').val().trim();
 		let phoneNumber = $('#phoneNumber').val().trim();
 		let password = $('#password').val();
 		
+		formData.append("loginId" , loginId);
+		formData.append("password" , password);
+		formData.append("name" , name);
+		formData.append("phoneNumber" , phoneNumber);
+		
+		if (password == ''){
+			alert("비밀번호를 입력해주세요.");
+			return;
+		}
 		$.ajax({
-			url:"/user/password_is_correct"
-			,data:{"password":password}
-			,success:function(data){
-				if(data.result){
-					//여기에 다른 ajax를 실행시키고 싶은데
-				}else{
-					alert('사용자의 비밀번호가 일치하지 않습니다.');
-				}
+			type:"post"
+			,url:"/user/update_user"
+			,data : formData
+			,contentType : false
+		    ,processData : false
+		    ,success : function(data){
+		    	if(data.result == "success"){
+		    		
+		    		alert('회원정보가 성공적으로 수정되었습니다.');
+			    	location.href = "/book/main_view";
+		    	}
+		    }
+			,error:function(data){
+				alert(data.error_message);
 			}
 			
 		});
