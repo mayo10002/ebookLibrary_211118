@@ -20,3 +20,30 @@
 	</c:if>
 	
 </div>
+
+
+<script>
+$(document).ready(function(){
+	$('#searchBtn').on('click',function(){
+		let searchText = $('#searchText').val().trim();
+		
+		if (searchText == ''){
+			alert('검색어를 입력해주세요.');
+			return;
+		}
+		$.ajax({
+			type:"get"
+			,url:"/book/search"
+			,data:{"searchText":searchText}
+			,success :function(data){
+				if(data.result == "success"){
+					location.href="/book/search_list_view";
+				}
+			}
+			,error : function(data){
+				alert(data.error_message);
+			}
+		});
+	});
+});
+</script>

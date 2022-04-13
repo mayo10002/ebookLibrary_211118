@@ -12,4 +12,10 @@ public class BookController {
 		model.addAttribute("viewName","book/main");
 		return "template/layout";
 	}
+	
+	@RequestMapping("/search_list_view")
+	public String searchListView(Model model) {
+		model.addAttribute("viewName","book/search");
+		return "template/layout";
+	}
 }
