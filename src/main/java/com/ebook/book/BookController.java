@@ -13,9 +13,5 @@ public class BookController {
 		return "template/layout";
 	}
 	
-	@RequestMapping("/search_list_view")
-	public String searchListView(Model model) {
-		model.addAttribute("viewName","book/search");
-		return "template/layout";
-	}
+	
 }

@@ -37,7 +37,7 @@ $(document).ready(function(){
 			,data:{"searchText":searchText}
 			,success :function(data){
 				if(data.result == "success"){
-					location.href="/book/search_list_view";
+					location.href="/search/search_list_view";
 				}
 			}
 			,error : function(data){
