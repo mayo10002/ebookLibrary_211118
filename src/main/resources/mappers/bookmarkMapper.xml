@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="com.ebook.bookmark.dao.BookmarkDAO">
+<insert id="insertBookmark" parameterType="map">
+INSERT INTO `bookmark`
+	(
+	`userId`
+	,`bookId`
+	,`createdAt`
+	)
+VALUE
+	(
+	#{userId)
+	,#{bookId}
+	,NOW()
+	)
+</insert>
+
+<select id="existBookmark" parameterType="map" resultType="int">
+SELECT
+	COUNT(1)
+FROM
+	`bookmark`
+WHERE
+ 	`userId` = #{userId}
+ AND
+ 	`bookId`= #{bookId}
+
+</select>
+<delete id="deleteBookmarkByBookIdAndUserId" parameterType="map">
+DELETE FROM
+	`bookmark`
+WHERE
+	`userId` = #{userId}
+AND
+	`bookId` = #{bookId}
+</delete>
+</mapper>
