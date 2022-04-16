@@ -8,10 +8,8 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class BookView {
+public class SearchBookView {
 	private Book book;
-	private Borrow borrow;
 	private boolean filledBookmark;
-	//아마 bookInfo로 쓸 것 같다. bookmark 추후 추가
 	
 }

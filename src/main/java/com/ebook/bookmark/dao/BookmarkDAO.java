@@ -1,7 +1,8 @@
 package com.ebook.bookmark.dao;
 
 import org.apache.ibatis.annotations.Param;
-
+import org.springframework.stereotype.Repository;
+@Repository
 public interface BookmarkDAO {
 	public void insertBookmark(
 			@Param("userId")int userId,

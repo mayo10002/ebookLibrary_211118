@@ -3,11 +3,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <div class="d-flex justify-content-between align-items-center">
 	<h1 class="font-weight-bold m-4 ">전자도서관</h1>
-	
-	<div class="search-box d-flex justify-content-center w-50">
-		<input type="text" id="searchText" class="form-control border-0 ml-5" placeholder="검색어를 입력하세요.">
-		<button type="button" id="searchBtn" class="btn btn-light">검색</button>
-	</div>
+	<form id="searchForm" method="get" action="/search/search_list_view">
+		<div class="search-box d-flex justify-content-center w-50">
+			<input type="text" id="searchText" name="searchText" class="form-control border-0 ml-5" placeholder="검색어를 입력하세요.">
+			<button type="submit" id="searchBtn" class="btn btn-light form-control">검색</button>
+		</div>
+	</form>
 	<c:if test="${empty userName}">
 		<div id="emptyUserBox" class="mr-2"></div>
 	</c:if>
@@ -31,19 +32,9 @@ $(document).ready(function(){
 			alert('검색어를 입력해주세요.');
 			return;
 		}
-		$.ajax({
-			type:"get"
-			,url:"/book/search"
-			,data:{"searchText":searchText}
-			,success :function(data){
-				if(data.result == "success"){
-					location.href="/search/search_list_view";
-				}
-			}
-			,error : function(data){
-				alert(data.error_message);
-			}
-		});
+		
+		
+		// location.href="/book/search_list_view?searchText=" + searchText;
 	});
 });
 </script>

@@ -12,7 +12,7 @@ INSERT INTO `bookmark`
 	)
 VALUE
 	(
-	#{userId)
+	#{userId}
 	,#{bookId}
 	,NOW()
 	)
