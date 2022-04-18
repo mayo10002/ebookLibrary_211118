@@ -35,7 +35,7 @@ public class SearchViewBO {
 		
 		return searchViewList;
 	}
-	public BookInfoView generateInfoView(int bookId, Integer userId) {
+	public BookInfoView generateInfoView( Integer userId, int bookId) {
 		BookInfoView info = new BookInfoView();
 		Book bookInfo = bookBO.getBookByBookId(bookId);
 		info.setBook(bookInfo);

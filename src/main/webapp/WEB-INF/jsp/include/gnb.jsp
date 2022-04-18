@@ -6,7 +6,7 @@
 	<form id="searchForm" method="get" action="/search/search_list_view">
 		<div class="search-box d-flex justify-content-center w-50">
 			<input type="text" id="searchText" name="searchText" class="form-control border-0 ml-5" placeholder="검색어를 입력하세요.">
-			<button type="submit" id="searchBtn" class="btn btn-light form-control">검색</button>
+			<button type="button" id="searchBtn" class="btn btn-light form-control">검색</button>
 		</div>
 	</form>
 	<c:if test="${empty userName}">
@@ -33,8 +33,6 @@ $(document).ready(function(){
 			return;
 		}
 		
-		
-		// location.href="/book/search_list_view?searchText=" + searchText;
 	});
 });
 </script>

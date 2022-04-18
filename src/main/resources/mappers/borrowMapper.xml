@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.ebook.borrow.dao.BorrowDAO">
+ <insert id="insertBorrow" parameterType="map">
+ INSERT INTO `borrow`
+ (
+	`userId`
+	,`bookId`
+	,`borrowAt`
+	,`returnAt`
+	,`createdAt`
+	,`updatedAt`
+ )
+ VALUE
+ (
+ 	#{userId}
+ 	,#{bookId}
+ 	,NOW()
+ 	,DATE_ADD(NOW(), INTEVAL 7 DAY);
+ 	,NOW()
+ 	,NOW()
+ )
+ 
+ </insert>
+ 
+ <select id="countBorrowByUserIdAndBookId" parameterType="map" resultType="int">
+ SELECT
+ 	COUNT(1)
+ FROM
+ 	`borrow`
+ WHERE
+ 	`userId` = #{userId}
+ AND
+ 	`bookId` = #{bookId}
+ </select>
+ </mapper>
