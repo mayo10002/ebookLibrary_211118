@@ -31,4 +31,6 @@ public class SearchInfoController {
 		model.addAttribute("viewName","book/search");
 		return "template/layout";
 	}
+	
+	
 }

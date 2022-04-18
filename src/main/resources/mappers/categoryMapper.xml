@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="com.ebook.category.dao.CategoryDAO">
+ <select id="selectCategoryByCategoryId" parameterType="int" resultType="com.ebook.category.model.Category">
+ SELECT 
+ 	`id`
+	,`categoryName`
+	,`createdAt`
+	,`updatedAt`
+FROM
+	`category`
+WHERE
+	`id` = #{id}
+ </select> 
+ </mapper>

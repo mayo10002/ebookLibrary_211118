@@ -38,3 +38,7 @@
 		</c:forEach>
 	</div>
 </div>
+
+<script>
+/* //pathvariable 로 bookid를 넘겨야 한다. */
+</script>

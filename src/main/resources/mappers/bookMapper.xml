@@ -25,4 +25,25 @@ WHERE
 LIKE  CONCAT('%',#{searchText},'%')
  
  </select>
+ 
+ <select id="selectBookByBookId" parameterType="int" resultType="com.ebook.book.model.Book">
+ SELECT 
+	`id`
+	,`name`
+	,`author`
+	,`publisher`
+	,`publishDate`
+	,`imagePath`
+	,`isbn`
+	,`page`
+	,`state`
+	,`info`
+	,`categoryId`
+	,`createdAt`
+	,`updatedAt`
+FROM
+	`book`
+WHERE
+	`id` = #{id}
+ </select>
  </mapper>

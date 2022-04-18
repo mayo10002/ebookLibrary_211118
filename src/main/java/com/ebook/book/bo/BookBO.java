@@ -14,6 +14,8 @@ public class BookBO {
 	private BookDAO bookDAO;
 	public List<Book> getBookBySearchText(String searchText){
 		return bookDAO.selectBookBySearchText(searchText);
-		
+	}
+	public Book getBookByBookId(int bookId) {
+		return bookDAO.selectBookByBookId(bookId);
 	}
 }
