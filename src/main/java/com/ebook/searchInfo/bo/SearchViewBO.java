@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.ebook.book.bo.BookBO;
 import com.ebook.book.model.Book;
 import com.ebook.bookmark.bo.BookmarkBO;
+import com.ebook.borrow.bo.BorrowBO;
 import com.ebook.category.bo.CategoryBO;
 import com.ebook.category.model.Category;
 import com.ebook.searchInfo.model.BookInfoView;
@@ -22,6 +23,8 @@ public class SearchViewBO {
 	private BookmarkBO bookmarkBO;
 	@Autowired 
 	private CategoryBO categoryBO;
+	@Autowired
+	private BorrowBO borrowBO;
 	public List<SearchBookView> generateSearchViewList(String searchText, Integer userId){
 		List<SearchBookView> searchViewList = new ArrayList<>();
 		List<Book> bookList = bookBO.getBookBySearchText(searchText);
@@ -42,8 +45,7 @@ public class SearchViewBO {
 		Category categoryInfo = categoryBO.getCategoryByCategoryId(bookInfo.getCategoryId());
 		info.setCategory(categoryInfo);
 		info.setFilledBookmark(bookmarkBO.existBookmark(userId, bookInfo.getId()));
-		
-		
-		// borrow
+		info.setReturnInfo(borrowBO.getLatestReturnAtByBookId(bookId));
+		return info;
 	}
 }

@@ -7,10 +7,12 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ebook.searchInfo.bo.SearchViewBO;
+import com.ebook.searchInfo.model.BookInfoView;
 import com.ebook.searchInfo.model.SearchBookView;
 
 @RequestMapping("/search")
@@ -31,6 +33,15 @@ public class SearchInfoController {
 		model.addAttribute("viewName","book/search");
 		return "template/layout";
 	}
-	
+	@RequestMapping("/info_view/{bookId}")
+	public String searchInfoView(
+			@PathVariable int bookId ,
+			Model model,
+			HttpSession session) {
+		Integer userId = (Integer)session.getAttribute("userId");
+		BookInfoView searchBookInfo = searchViewBO.generateInfoView(userId, bookId);
+		model.addAttribute("searchBookInfo" , searchBookInfo);
+		return "template/layout";
+	}
 	
 }

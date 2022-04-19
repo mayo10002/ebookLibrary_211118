@@ -6,9 +6,9 @@
 	<div>
 		<c:forEach items="${searchViewList}" var="search">
 			<div id="searchResultList" class="d-flex justify-content-center align-items-center my-3">
-				<div id="resultBookImage"><a href="/book/info/${search.book.id}"><img src="${search.book.imagePath}" alt="도서 이미지" width="120" height="80"></a></div>
+				<div id="resultBookImage"><a href="/search/info_view/${search.book.id}"><img src="${search.book.imagePath}" alt="도서 이미지" width="120" height="80"></a></div>
 				<div id="resultBookInfo" class="mx-3">
-					<div><a href="/book/info/${search.book.id}"><span class="font-weight-bold font-size-larger">${search.book.name}</span></a></div>
+					<div><a href="/search/info_view/${search.book.id}"><span class="font-weight-bold font-size-larger">${search.book.name}</span></a></div>
 					<div>${search.book.author} 지음</div>
 					<div>${search.book.publisher} | ${search.book.publishDate} 출간</div>
 				</div>

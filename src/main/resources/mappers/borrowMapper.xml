@@ -17,7 +17,7 @@
  	#{userId}
  	,#{bookId}
  	,NOW()
- 	,DATE_ADD(NOW(), INTEVAL 7 DAY);
+ 	,DATE_ADD(NOW(), INTERVAL 7 DAY);
  	,NOW()
  	,NOW()
  )
@@ -33,5 +33,47 @@
  	`userId` = #{userId}
  AND
  	`bookId` = #{bookId}
+ </select>
+ 
+<select id="selectLatestReturnAtByBookId" parameterType="int" resultType="Date">
+SELECT 
+	`returnAt`
+FROM
+	`borrow`
+WHERE 
+	`bookId` = #{bookId}
+ORDER BY 
+	`returnAt` ASC
+LIMIT 1
+ </select>
+<delete id="deleteBorrow" parameterType="map">
+DELETE FROM 
+	`borrow`
+WHERE
+	`userId` = #{userId}
+AND
+	`bookId` = #{bookId}
+</delete>
+<update id="updateReturnAtByUserIdAndBookId" parameterType="map">
+UPDATE
+	`borrow`
+SET 
+	`returnAt` = DATE_ADD(`returnAt` , INTERVAL 7 DAY)
+	,`updatedAt` = NOW()
+WHERE
+	`userId` = #{userId}
+AND
+	`bookId` = #{bookId} 
+ </update>
+ 
+ <select id="selectExtendBorrowByUserIdAndBookId" parameterType="map" resultType="int">
+ SELECT
+ 	TIMESTAMPDIFF( DAY, `borrowAt`, `returnAt`)
+ FROM
+ 	`borrow`
+ WHERE
+	`userId` = #{userId}
+AND
+	`bookId` = #{bookId} 
  </select>
  </mapper>
