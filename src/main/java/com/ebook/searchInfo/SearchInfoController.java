@@ -41,6 +41,7 @@ public class SearchInfoController {
 		Integer userId = (Integer)session.getAttribute("userId");
 		BookInfoView searchBookInfo = searchViewBO.generateInfoView(userId, bookId);
 		model.addAttribute("searchBookInfo" , searchBookInfo);
+		model.addAttribute("viewName","book/info");
 		return "template/layout";
 	}
 	

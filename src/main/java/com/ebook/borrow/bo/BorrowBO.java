@@ -21,13 +21,21 @@ public class BorrowBO {
 	public int countBorrowByUserIdAndBookId(int userId, int bookId) {
 		return borrowDAO.countBorrowByUserIdAndBookId(userId, bookId);
 	}
+	// 도서로 대출 일자 조회
+	public int countBorrowByBookId(int bookId) {
+		return borrowDAO.countBorrowByBookId(bookId);
+	}
+	// 사용자 id로 대출 일자 조회 
+	public int countBorrowByUserId(int userId) {
+		return borrowDAO.countBorrowByUserId(userId);
+	}
 	// 반납 일자 조회용. 그 중에서도 가장 빠른 반납일자를 골라야 함. book 테이블에서 state가 대출 가능일 때는 보이지 않게 jstl로 처리하기.
 	public Date getLatestReturnAtByBookId(int bookId) {
 		return borrowDAO.selectLatestReturnAtByBookId(bookId);
 	}
 	// 반납 - delete
-	public void deleteBorrow(int userId, int bookId) {
-		borrowDAO.deleteBorrow(userId, bookId);
+	public int deleteBorrow(int userId, int bookId) {
+		return borrowDAO.deleteBorrow(userId, bookId);
 	}
 	// 연장 - update (put방식)
 	public int updateReturnAtByUserIdAndBookId(int userId, int bookId) {

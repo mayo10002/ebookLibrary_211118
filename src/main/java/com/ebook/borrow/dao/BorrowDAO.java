@@ -13,8 +13,10 @@ public interface BorrowDAO {
 	public int countBorrowByUserIdAndBookId(
 			@Param("userId")int userId,
 			@Param("bookId")int bookId);
+	public int countBorrowByBookId(int bookId);
+	public int countBorrowByUserId(int userId);
 	public Date selectLatestReturnAtByBookId(int bookId);
-	public void deleteBorrow(
+	public int deleteBorrow(
 			@Param("userId")int userId,
 			@Param("bookId")int bookId);
 	public int updateReturnAtByUserIdAndBookId(

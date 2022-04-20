@@ -35,6 +35,22 @@
  	`bookId` = #{bookId}
  </select>
  
+ <select id="countBorrowByBookId" parameterType="int" resultType="int">
+ SELECT
+ 	COUNT(*)
+ FROM
+ 	`borrow` 
+ WHERE 
+ 	`bookId` = #{bookId}
+ </select>
+ <select id="countBorrowByUserId" parameterType="int" resultType="int">
+ SELECT
+ 	COUNT(*)
+ FROM
+ 	`borrow` 
+ WHERE 
+ 	`userId` = #{userId}
+ </select>
 <select id="selectLatestReturnAtByBookId" parameterType="int" resultType="Date">
 SELECT 
 	`returnAt`
