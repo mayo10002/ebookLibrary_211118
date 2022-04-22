@@ -34,7 +34,14 @@
  AND
  	`bookId` = #{bookId}
  </select>
- 
+ <select id="countBorrowStateByBookId" parameterType="int" resultType="int">
+ SELECT
+ 	COUNT(*)
+ FROM
+ 	`borrow`
+ WHERE
+ 	`bookId` = #{bookId}
+ </select>
  <select id="countBorrowByBookId" parameterType="int" resultType="int">
  SELECT
  	COUNT(*)
@@ -91,5 +98,21 @@ AND
 	`userId` = #{userId}
 AND
 	`bookId` = #{bookId} 
+ </select>
+ <select id="selectExpiredBorrowList" resultType="com.ebook.borrow.model.Borrow">
+ SELECT
+ (
+	`id`
+	,`userId`
+	,`bookId`
+	,`borrowAt`
+	,`returnAt`
+	,`createdAt`
+	,`updatedAt`
+ ) 
+ FROM
+ 	`borrow`
+ WHERE
+ 	TIMESTAMPDIFF( DAY, NOW(), `returnAt`) &lt; 0
  </select>
  </mapper>

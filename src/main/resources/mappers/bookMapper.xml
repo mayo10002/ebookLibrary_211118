@@ -46,5 +46,20 @@ FROM
 WHERE
 	`id` = #{id}
  </select>
- 
+ <update id="updateStateToBorrowByBookId" parameterType="int">
+ UPDATE
+	`book`
+SET 
+	`state` = '대출 가능'
+WHERE
+	`id` = #{id}
+ </update>
+ <update id="updateStateToReserveByBookId" parameterType="int">
+ UPDATE
+	`book`
+SET 
+	`state` = '예약 가능'
+WHERE
+	`id` = #{id} 
+ </update>
  </mapper>

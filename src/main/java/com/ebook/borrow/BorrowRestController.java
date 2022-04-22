@@ -1,6 +1,7 @@
 package com.ebook.borrow;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -11,13 +12,17 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ebook.book.bo.BookBO;
 import com.ebook.borrow.bo.BorrowBO;
+import com.ebook.borrow.model.Borrow;
 
 @RequestMapping("/borrow")
 @RestController
 public class BorrowRestController {
 	@Autowired
 	private BorrowBO borrowBO;
+	@Autowired 
+	private BookBO bookBO;
 	// 대출 가능 조건 충족 시 : userId로 찾은 borrow 데이터 개수도, bookId로 찾은 borrow 데이터 개수도 count 5 미만일 때
 	@RequestMapping("/borrow/{bookId}")
 	public Map<String, Object> borrow(
@@ -43,29 +48,26 @@ public class BorrowRestController {
 				result.put("error_message", "도서 대출에 실패했습니다.");
 			}else {
 				result.put("result", "success");
+				if(bookCount == 5) {
+					bookBO.changeStateToReserveByBookId(bookId);
+				}
 			}
 		}
 		return result;
 	}
-	// 도서 상태 업데이트 구문 >  bookBO 에서 
-	// bookCount가 4에서 5로 넘어가고나서 대출처리가 된 순간 bookBO에서 자동으로 update구문이 돌아가야 한다. 
-	// bookCount가 5에서 4로 내려가도 마찬가지로 자동 update
-	// 누군가 도서를 반납했을 시 예약 1순위 사용자를 불러와 자동 대출 처리
-	@RequestMapping("/delete_update/{bookId}")
-	public Map<String,Object> bookUpdate(@PathVariable int bookId,
-			HttpSession session){
-		int userId = (int)session.getAttribute("userId");
-		Map<String, Object> result = new HashMap<>();
-		
-		// insert DB
-		int bookCount = borrowBO.countBorrowByBookId(bookId);
-		if(bookCount == 5) {
+
+	//밤 12시마다 자동 반납 : 날짜 차이가 -1이 되는 날(반납일 당일까지는 대출 상태)
+	@RequestMapping("/delete_auto/{bookId}")
+	public Map<String, Object> dayDelete(){
+		//모든 book에서 반납일과 오늘 날짜가 같은 책의 borrow테이블 list를 받아오기(userId 랑 bookId 써먹어야 하니까)
+		List<Borrow> expiredBook = borrowBO.getExpiredBorrowList();
+		// 
+		// borrowList에 대해 반납 for문 돌리기. 아니면 반납쿼리를 id에 대해 for문을 돌리는 방식으로 따로 만들기. 밑에 있는 반납 쿼리 그대로 적용하려면 bookId가 필요하긴 함
+		for(Borrow borrow : expiredBook) {
 			
 		}
 		
 	}
-	//밤 12시마다 자동 반납
-	@RequestMapping("/delete_auto/{bookId}")
 	// 수동 반납
 	@DeleteMapping("/delete/{bookId}")
 	public Map<String, Object> delete(
@@ -81,6 +83,10 @@ public class BorrowRestController {
 			result.put("error_message", "도서 반납에 실패했습니다.");
 		}else {
 			result.put("result", "success");
+			int bookCount = borrowBO.countBorrowByBookId(bookId);
+			if(bookBO.getBookByBookId(bookId).getState().equals("예약 가능") && bookCount == 4) {
+				bookBO.changeStateToBorrowByBookId(bookId);
+			}
 		}
 		
 		return result;

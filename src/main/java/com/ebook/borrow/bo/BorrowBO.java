@@ -1,11 +1,13 @@
 package com.ebook.borrow.bo;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ebook.borrow.dao.BorrowDAO;
+import com.ebook.borrow.model.Borrow;
 
 @Service
 public class BorrowBO {
@@ -20,6 +22,10 @@ public class BorrowBO {
 	// 대출 기록 조회
 	public int countBorrowByUserIdAndBookId(int userId, int bookId) {
 		return borrowDAO.countBorrowByUserIdAndBookId(userId, bookId);
+	}
+	// 책 현재 대출 상태인지 조회
+	public int countBorrowStateByBookId(int bookId) {
+		return borrowDAO.countBorrowStateByBookId(bookId);
 	}
 	// 도서로 대출 일자 조회
 	public int countBorrowByBookId(int bookId) {
@@ -46,5 +52,8 @@ public class BorrowBO {
 	public int getExtendBorrowByUserIdAndBookId(int userId, int bookId) {
 		return borrowDAO.selectExtendBorrowByUserIdAndBookId(userId, bookId);
 	}
-	
+	// 반납해야 하는 책 select
+	public List<Borrow> getExpiredBorrowList(){
+		return borrowDAO.selectExpiredBorrowList();
+	}
 }

@@ -18,4 +18,10 @@ public class BookBO {
 	public Book getBookByBookId(int bookId) {
 		return bookDAO.selectBookByBookId(bookId);
 	}
+	public void changeStateToBorrowByBookId(int bookId) {
+		bookDAO.updateStateToBorrowByBookId(bookId);
+	}
+	public void changeStateToReserveByBookId(int bookId) {
+		bookDAO.updateStateToReserveByBookId(bookId);
+	}
 }
