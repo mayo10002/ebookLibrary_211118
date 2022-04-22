@@ -3,10 +3,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <div class="d-flex justify-content-between align-items-center">
 	<h1 class="font-weight-bold m-4 ">전자도서관</h1>
-	<form id="searchForm" name="searchForm" method="get" action="/search/search_list_view">
+	<form id="searchForm" method="get" action="/search/search_list_view">
 		<div class="search-box d-flex justify-content-center w-50">
 			<input type="text" id="searchText" name="searchText" class="border-0 ml-5" placeholder="검색어를 입력하세요.">
-			<button type="button" id="searchBtn" class="btn btn-light">검색</button>
+			<button type="submit" id="searchBtn" class="btn btn-light">검색</button>
 		</div>
 	</form>
 	<c:if test="${empty userName}">
@@ -26,15 +26,11 @@
 <script>
 $(document).ready(function(){
 	$('#searchBtn').on('click',function(e){
-		let searchForm = document.('#searchForm');
 		let searchText = $('#searchText').val().trim();
 	
 		if (searchText == ''){
 			alert('검색어를 입력해주세요.');
-			return false;
-		}else{
-			searchForm.submit();
-		
+			e.preventDefault();
 		}
 		
 		

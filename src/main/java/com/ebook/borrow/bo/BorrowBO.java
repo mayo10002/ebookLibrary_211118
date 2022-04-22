@@ -18,7 +18,6 @@ public class BorrowBO {
 	public int createBorrow(int userId,int bookId) {
 		return borrowDAO.insertBorrow(userId, bookId);
 	}
-	
 	// 대출 기록 조회
 	public int countBorrowByUserIdAndBookId(int userId, int bookId) {
 		return borrowDAO.countBorrowByUserIdAndBookId(userId, bookId);
@@ -55,5 +54,9 @@ public class BorrowBO {
 	// 반납해야 하는 책 select
 	public List<Borrow> getExpiredBorrowList(){
 		return borrowDAO.selectExpiredBorrowList();
+	}
+	// id에 따라 반납
+	public int deleteBorrowById(int id) {
+		return borrowDAO.deleteBorrowById(id);
 	}
 }

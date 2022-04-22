@@ -36,14 +36,21 @@
 					</span>
 				</c:if>
 				<div class="d-flex justify-content-center">
-				<!-- 대출 가능 상태일 때 대출 버튼 : 대출과 북마크 버튼은 로그인 한 상태일 때만 보이게  -->
-					<button></button>
-				<!-- 대출 불가 상태일 때 예약 버튼 -->
-					<button></button>
-				<!-- 대출 가능 상태일 때 연장 버튼 -->
+				<c:choose>
+					<c:when test="${searchBookInfo.book.state eq '대출 가능'}">
+						<button id="borrowBtn" type="button" class="btn btn-success" data-book-id="${searchBookInfo.book.id}">대출하기</button>
+					</c:when>
+					<c:when test="${searchBookInfo.book.state eq '예약 가능'}">
+						<button id="reserveBtn" type="button" class="btn btn-warning" data-book-id="${searchBookInfo.book.id}">예약하기</button>
+					</c:when>
+				</c:choose>
+				
+				
+				<!-- 대출 가능 상태일 때 연장 버튼
+					<button id="extendBtn" type="button" class="btn btn-danger" >연장하기</button> -->
 					<!-- 즐겨찾기 버튼 -->
 					<c:if test="${not empty userName}">
-						<div id="resultBookmark">
+						<div id="resultBookmark" class="ml-5">
 							<a href="#" id="bookmarkBtn" data-book-id="${searchBookInfo.book.id}">
 								<c:if test="${searchBookInfo.filledBookmark eq true}">
 									<img src="https://www.iconninja.com/files/647/837/222/star-icon.png" alt="채워진 별" width="30" height="30">
@@ -82,6 +89,25 @@ $(document).ready(function(){
 			}
 			,error:function(e){
 				alert("즐겨찾기 등록에 실패했습니다. 관리자에게 문의해주세요.");
+			}
+		});
+	});
+	$('#borrowBtn').on('click',function(e){
+		e.preventDefault;
+		let bookId = $(this).data('book-id');
+		$.ajax({
+			type:"post"
+			,url: "/borrow/borrow/" + bookId
+			,data:{"bookId":bookId}
+			,success: function(data){
+				if(data.result == "success"){
+					location.reload();
+				}else{
+					alert(data.error_message);
+				}
+			}
+			,error:function(e){
+				alert("대출에 실패했습니다. 관리자에게 문의해주세요.");
 			}
 		});
 	});

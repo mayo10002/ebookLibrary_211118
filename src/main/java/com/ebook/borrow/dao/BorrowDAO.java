@@ -30,4 +30,5 @@ public interface BorrowDAO {
 			@Param("userId")int userId,
 			@Param("bookId")int bookId);
 	public List<Borrow> selectExpiredBorrowList();
+	public int deleteBorrowById(int id);
 }

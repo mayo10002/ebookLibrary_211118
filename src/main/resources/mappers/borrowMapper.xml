@@ -12,18 +12,17 @@
 	,`createdAt`
 	,`updatedAt`
  )
- VALUE
+ VALUES
  (
  	#{userId}
  	,#{bookId}
  	,NOW()
- 	,DATE_ADD(NOW(), INTERVAL 7 DAY);
+ 	,DATE_ADD(NOW(), INTERVAL 7 DAY)
  	,NOW()
  	,NOW()
  )
  
  </insert>
- 
  <select id="countBorrowByUserIdAndBookId" parameterType="map" resultType="int">
  SELECT
  	COUNT(1)
@@ -115,4 +114,10 @@ AND
  WHERE
  	TIMESTAMPDIFF( DAY, NOW(), `returnAt`) &lt; 0
  </select>
+ <delete id="deleteBorrowById" parameterType="int">
+ DELETE FROM 
+	`borrow`
+WHERE
+	`id` = #{id}
+ </delete>
  </mapper>
