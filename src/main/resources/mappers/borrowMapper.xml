@@ -100,7 +100,6 @@ AND
  </select>
  <select id="selectExpiredBorrowList" resultType="com.ebook.borrow.model.Borrow">
  SELECT
- (
 	`id`
 	,`userId`
 	,`bookId`
@@ -108,7 +107,6 @@ AND
 	,`returnAt`
 	,`createdAt`
 	,`updatedAt`
- ) 
  FROM
  	`borrow`
  WHERE

@@ -23,7 +23,7 @@ public class Scheduler {
 	@Autowired
 	private BookBO bookBO;
 	//밤 12시마다 자동 반납 : 날짜 차이가 -1이 되는 날(반납일 당일까지는 대출 상태)
-	//@Scheduled(cron = "0 0 0 * * *")
+	@Scheduled(cron = "0 0 0 * * *")
 	//@Scheduled(cron = "0 * * * * *")
 	public Map<String, Object> dayDelete(){
 		Map<String, Object> result = new HashMap<>();

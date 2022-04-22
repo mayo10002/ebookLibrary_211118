@@ -36,6 +36,7 @@
 					</span>
 				</c:if>
 				<div class="d-flex justify-content-center">
+				<c:if test="${not empty userName}">
 				<c:choose>
 					<c:when test="${searchBookInfo.book.state eq '대출 가능'}">
 						<button id="borrowBtn" type="button" class="btn btn-success" data-book-id="${searchBookInfo.book.id}">대출하기</button>
@@ -44,7 +45,7 @@
 						<button id="reserveBtn" type="button" class="btn btn-warning" data-book-id="${searchBookInfo.book.id}">예약하기</button>
 					</c:when>
 				</c:choose>
-				
+				</c:if>
 				
 				<!-- 대출 가능 상태일 때 연장 버튼
 					<button id="extendBtn" type="button" class="btn btn-danger" >연장하기</button> -->

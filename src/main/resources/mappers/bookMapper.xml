@@ -21,8 +21,9 @@
 FROM
 	`book`
 WHERE
-	`name` OR `author` OR `info`
-LIKE  CONCAT('%',#{searchText},'%')
+	`name` LIKE  CONCAT('%',#{searchText},'%')
+	OR `author` LIKE  CONCAT('%',#{searchText},'%')
+	OR `info` LIKE  CONCAT('%',#{searchText},'%')
  
  </select>
  
