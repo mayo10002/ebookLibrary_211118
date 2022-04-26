@@ -2,4 +2,52 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  <mapper namespace="com.ebook.reserve.dao.ReserveDAO">
+ <insert id="insertReserve" parameterType="map" >
+ INSERT INTO
+ 	`reserve`
+ (
+ 	`userId`
+ 	,`bookId`
+ 	,`createdAt`
+ )
+ VALUES
+ (
+ 	#{userId}
+ 	,#{bookId}
+ 	,NOW()
+ )
+ </insert>
+ <select id="selectFirstReserve" parameterType="int" resultType="com.ebook.reserve.model.Reserve">
+ SELECT 
+ 	`id`
+ 	,`userId`
+ 	,`bookId`
+	,`createdAt`
+FROM 
+	`reserve`
+WHERE
+	`bookId` = #{bookId}
+ORDER BY 
+	`createdAt` ASC
+LIMIT 
+	1
+ </select>
+ <select id="countReserveByUserIdAndBookId" parameterType="map" resultType="int">
+ SELECT 
+ 	COUNT(1)
+ FROM 
+ 	`reserve`
+ WHERE
+	`userId` = #{userId}
+ AND
+	`bookId` = #{bookId}
+ </select>
+ <delete id="deleteReserve" parameterType="map">
+ DELETE FROM
+ 	`reserve`
+ WHERE
+	`userId` = #{userId}
+ AND
+	`bookId` = #{bookId}
+ </delete>
  </mapper>

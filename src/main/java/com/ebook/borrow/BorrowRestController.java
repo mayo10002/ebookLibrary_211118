@@ -58,7 +58,7 @@ public class BorrowRestController {
 	}
 
 	//자동 반납 메소드는 schedule에
-	
+	//reserve가져와야함. 수동 반납했을 때 만약 bookId 예약자리를 가지고 있는 사람이 존재하면 그 사람을 바로 borrow처리시켜야 한다.
 	// 수동 반납
 	@DeleteMapping("/delete/{bookId}")
 	public Map<String, Object> delete(
