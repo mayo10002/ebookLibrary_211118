@@ -8,6 +8,6 @@ import com.ebook.reserve.model.Reserve;
 public interface ReserveDAO {
 	public int insertReserve(int userId, int bookId);
 	public Reserve selectFirstReserve(int bookId);
-	public void deleteReserve(int userId, int bookId);
+	public int deleteReserve(int userId, int bookId);
 	public int countReserveByUserIdAndBookId(int userId, int bookId);
 }

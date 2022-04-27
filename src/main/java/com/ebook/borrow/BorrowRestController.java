@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ebook.book.bo.BookBO;
 import com.ebook.borrow.bo.BorrowBO;
+import com.ebook.reserve.bo.ReserveBO;
 
 @RequestMapping("/borrow")
 @RestController
@@ -21,6 +22,8 @@ public class BorrowRestController {
 	private BorrowBO borrowBO;
 	@Autowired 
 	private BookBO bookBO;
+	@Autowired
+	private ReserveBO reserveBO;
 	// 대출 가능 조건 충족 시 : userId로 찾은 borrow 데이터 개수도, bookId로 찾은 borrow 데이터 개수도 count 5 미만일 때
 	@RequestMapping("/borrow/{bookId}")
 	public Map<String, Object> borrow(
@@ -75,13 +78,24 @@ public class BorrowRestController {
 		}else {
 			result.put("result", "success");
 			int bookCount = borrowBO.countBorrowByBookId(bookId);
-			if(bookBO.getBookByBookId(bookId).getState().equals("예약 가능") && bookCount == 4) {
+			//여기에 reserve 목록이 있을 경우 최상단 user를 가져와 borrow처리시켜줘야 한다. book의 state는 바꿀 필요가 없다. 
+			if(reserveBO.getFirstReserve(bookId) != null) {
+				int reserveUserId = reserveBO.getFirstReserve(bookId).getUserId();
+				int userCount =  borrowBO.countBorrowByUserId(reserveUserId);
+				if(userCount>= 5){
+					// 1순위 예약자가 이미 책 5권을 전부 빌렸을 경우 다음 예약자로 넘어가야하는 건가?
+					result.put("result","error");
+					result.put("error_message","대출 가능 권수를 초과했습니다.");
+					// id 순위 찾아서 다음 예약자 찾는 query 만들어야 함. 위의 resulterror는 DB 넣고 나서 지우자.
+				}else {
+					borrowBO.createBorrow(reserveUserId, bookId);
+				}
+			}else if(bookBO.getBookByBookId(bookId).getState().equals("예약 가능") && bookCount == 4) {
 				bookBO.changeStateToBorrowByBookId(bookId);
 			}
 		}
-		
 		return result;
-		}
+	}
 	// 연장 가능 조건 충족 시 연장
 	@RequestMapping("/extend/{bookId}")
 	public Map<String, Object> extend(

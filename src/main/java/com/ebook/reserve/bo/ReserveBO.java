@@ -24,7 +24,7 @@ public class ReserveBO {
 		return reserveDAO.countReserveByUserIdAndBookId(userId, bookId);
 	}
 	// 예약 취소
-	public void deleteReserve(int userId, int bookId) {
-		reserveDAO.deleteReserve(userId, bookId);
+	public int deleteReserve(int userId, int bookId) {
+		return reserveDAO.deleteReserve(userId, bookId);
 	}
 }

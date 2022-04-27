@@ -51,6 +51,18 @@ public class ReserveRestController {
 	public Map<String, Object> delete(
 			@PathVariable int bookId,
 			HttpSession session){
+		int userId = (int)session.getAttribute("userId");
 		
+		Map<String, Object> result = new HashMap<>();
+		int row = reserveBO.deleteReserve(userId, bookId);
+		if (row < 1) {
+			result.put("result", "error");
+			result.put("error_message", "반납에 실패했습니다.");
+		} else {
+			result.put("result", "success");
+		}
+		return result;
 	}
+	
+	
 }
