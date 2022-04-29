@@ -12,4 +12,5 @@ public interface BookDAO {
 	public Book selectBookByBookId(int id); 
 	public void updateStateToBorrowByBookId(int id);
 	public void updateStateToReserveByBookId(int id);
+	public List<Book> selectLatestBookList();
 }

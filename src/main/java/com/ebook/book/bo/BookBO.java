@@ -24,4 +24,7 @@ public class BookBO {
 	public void changeStateToReserveByBookId(int bookId) {
 		bookDAO.updateStateToReserveByBookId(bookId);
 	}
+	public List<Book> getLatestBookList(){
+		return bookDAO.selectLatestBookList();
+	}
 }

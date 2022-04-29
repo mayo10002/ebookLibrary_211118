@@ -5,10 +5,33 @@
 	<div class="w-75 bg-warning d-flex justify-content-center">
 		<div id="bookRecommend col-8">
 			<div><h2>신간 도서</h2></div>
-			<div class="d-flex justify-content-center">
-				<div class="latest-book bg-secondary">
-					<img src="#" alt="표지" width="120" height="180">
-				</div>
+			<div class="d-flex">
+				<c:forEach items="${latestBook}" var="latest">
+					<div class="d-flex justify-content-center mx-1 my-3">
+						<div class="latest-book bg-secondary">
+						<!-- 신간 추천 -->
+							<a href=""></a><img src="${latest.imagePath}" alt="표지" width="120" height="180" class="ml-4"><br>
+							<span class="font-weight-bold">${latest.name}</span><br>
+							<span>${latest.author}</span><br>
+							<span>${latest.publisher}</span>
+						</div>
+					</div>
+				</c:forEach>
+			</div>
+			
+			<div><h2>추천 도서</h2></div>
+			<div class="d-flex">
+				<c:forEach items="${latestBook}" var="latest">
+					<div class="d-flex justify-content-center mx-1 my-3">
+						<div class="latest-book bg-secondary">
+						<!-- 연관 추천 :최근에 빌렸던 책 하나의 category와 동일한 category의 책을 신간 순으로 골라 추천한다.-->
+							<a href=""></a><img src="${latest.imagePath}" alt="표지" width="120" height="180" class="ml-4"><br>
+							<span class="font-weight-bold">${latest.name}</span><br>
+							<span>${latest.author}</span><br>
+							<span>${latest.publisher}</span>
+						</div>
+					</div>
+				</c:forEach>
 			</div>
 		</div>
 		<div id="userSelect bg-secondary col-4 p-3">
