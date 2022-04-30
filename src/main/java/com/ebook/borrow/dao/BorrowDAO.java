@@ -20,6 +20,9 @@ public interface BorrowDAO {
 	public int countBorrowByBookId(int bookId);
 	public int countBorrowByUserId(int userId);
 	public Date selectLatestReturnAtByBookId(int bookId);
+	public Date selectReturnAtByBookIdAndUserId(
+			@Param("userId")int userId,
+			@Param("bookId")int bookId);
 	public int deleteBorrow(
 			@Param("userId")int userId,
 			@Param("bookId")int bookId);
@@ -32,4 +35,5 @@ public interface BorrowDAO {
 	public List<Borrow> selectExpiredBorrowList();
 	public int deleteBorrowById(int id);
 	public Integer selectLatestBorrowBookId(int userId);
+	public List<Borrow> selectBorrowByUserId(int userId);
 }

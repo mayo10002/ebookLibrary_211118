@@ -47,8 +47,6 @@
 				</c:choose>
 				</c:if>
 				
-				<!-- 대출 가능 상태일 때 연장 버튼
-					<button id="extendBtn" type="button" class="btn btn-danger" >연장하기</button> -->
 					<!-- 즐겨찾기 버튼 -->
 					<c:if test="${not empty userName}">
 						<div id="resultBookmark" class="ml-5">

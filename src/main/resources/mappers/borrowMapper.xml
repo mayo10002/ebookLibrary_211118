@@ -68,6 +68,16 @@ ORDER BY
 	`returnAt` ASC
 LIMIT 1
  </select>
+ <select id="selectReturnAtByBookIdAndUserId" parameterType="map" resultType="Date">
+ SELECT 
+ 	`returnAt`
+ FROM
+ 	`borrow`
+ WHERE
+ 	`userId` = #{userId}
+ AND
+ 	`bookId` = #{bookId}
+ </select>
 <delete id="deleteBorrow" parameterType="map">
 DELETE FROM 
 	`borrow`
@@ -123,6 +133,20 @@ AND
  	`createdAt` DESC
  LIMIT 
   	1
+ </select>
+ <select id="selectBorrowByUserId" parameterType="int" resultType="com.ebook.borrow.model.Borrow">
+SELECT
+	`id`
+	,`userId`
+	,`bookId`
+	,`borrowAt`
+	,`returnAt`
+	,`createdAt`
+	,`updatedAt`
+ FROM
+ 	`borrow`
+ WHERE
+ 	`userId` = #{userId}
  </select>
  <delete id="deleteBorrowById" parameterType="int">
  DELETE FROM 

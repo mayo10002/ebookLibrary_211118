@@ -38,6 +38,9 @@ public class BorrowBO {
 	public Date getLatestReturnAtByBookId(int bookId) {
 		return borrowDAO.selectLatestReturnAtByBookId(bookId);
 	}
+	public Date getReturnAtByBookIdAndUserId(int userId, int bookId) {
+		return borrowDAO.selectReturnAtByBookIdAndUserId(userId, bookId);
+	}
 	// 반납 - delete
 	public int deleteBorrow(int userId, int bookId) {
 		return borrowDAO.deleteBorrow(userId, bookId);
@@ -62,5 +65,8 @@ public class BorrowBO {
 	//가장 최근에 빌린 책 select 
 	public Integer getLatestBorrowBookId(int userId) {
 		return borrowDAO.selectLatestBorrowBookId(userId);
+	}
+	public List<Borrow> getBorrowByUserId(int userId){
+		return borrowDAO.selectBorrowByUserId(userId);
 	}
 }

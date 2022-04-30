@@ -24,6 +24,10 @@ public class ReserveBO {
 	public List<Reserve> getReserveList(int bookId) {
 		return reserveDAO.selectReserveList(bookId);
 	}
+	// mypage 예약 리스트 불러오기
+	public List<Reserve> getReserveListByUserId(int userId){
+		return reserveDAO.selectReserveListByUserId(userId);
+	}
 	// 예약 확인 용
 	public int countReserveByUserIdAndBookId(int userId, int bookId) {
 		return reserveDAO.countReserveByUserIdAndBookId(userId, bookId);

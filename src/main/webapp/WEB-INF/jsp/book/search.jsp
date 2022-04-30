@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <div class="d-flex justify-content-center">
 <div class="width-fix m-5 p-5">
 	<div class="mb-4"><span class="font-weight-bold">검색 결과</span></div>
@@ -11,7 +12,8 @@
 				<div id="resultBookInfo" class="mx-3">
 					<div><a href="/search/info_view/${search.book.id}"><span class="font-weight-bold font-size-larger">${search.book.name}</span></a></div>
 					<div>${search.book.author} 지음</div>
-					<div>${search.book.publisher} | ${search.book.publishDate} 출간</div>
+					<div>${search.book.publisher} | 
+					<fmt:formatDate var="publishDate" value="${search.book.publishDate}" pattern="yyyy-MM-dd" />${publishDate} 출간</div>
 				</div>
 				<div id="resultBookstate" class="my-2 font-weight-bold">도서 상태:&nbsp;
 				<!-- c:choose 써서 span text 색깔 바꿔서 표시하기 -->
@@ -30,7 +32,7 @@
 				<div id="resultBookmark">
 					<c:if test="${not empty userName}">
 						<div id="resultBookmark" class="ml-5">
-							<a href="#" id="bookmarkBtn" data-book-id="${search.book.id}">
+							<a href="#" class="bookmarkBtn" data-book-id="${search.book.id}">
 								<c:if test="${search.filledBookmark eq true}">
 									<img src="https://www.iconninja.com/files/647/837/222/star-icon.png" alt="채워진 별" width="30" height="30">
 								</c:if>
@@ -49,10 +51,10 @@
 
 <script>
 $(document).ready(function(){
-	$('#bookmarkBtn').on('click',function(e){
+	$('.bookmarkBtn').on('click',function(e){
 		e.preventDefault();
-		
 		let bookId = $(this).data('book-id');
+		console.log(bookId);
 		$.ajax({
 			url : "/bookmark/" + bookId
 			,success: function(data){
@@ -67,5 +69,5 @@ $(document).ready(function(){
 			}
 		});
 	});
-})
+});
 </script>
