@@ -24,7 +24,6 @@ public class Scheduler {
 	private BookBO bookBO;
 	//밤 12시마다 자동 반납 : 날짜 차이가 -1이 되는 날(반납일 당일까지는 대출 상태)
 	@Scheduled(cron = "0 0 0 * * *")
-	//@Scheduled(cron = "0 * * * * *")
 	public Map<String, Object> dayDelete(){
 		Map<String, Object> result = new HashMap<>();
 		//모든 book에서 반납일과 오늘 날짜가 같은 책의 borrow테이블 list를 받아오기(userId 랑 bookId 써먹어야 하니까)

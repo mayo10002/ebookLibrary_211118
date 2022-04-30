@@ -50,13 +50,12 @@ public class BorrowRestController {
 			if( row < 1) {
 				result.put("result", "error");
 				result.put("error_message", "도서 대출에 실패했습니다.");
-			}else {
-				result.put("result", "success");
-				if(bookCount == 5) {
-					bookBO.changeStateToReserveByBookId(bookId);
-				}
 			}
 		}
+		if(bookCount == 5) {
+			bookBO.changeStateToReserveByBookId(bookId);
+		}
+		result.put("result", "success");
 		return result;
 	}
 
@@ -78,18 +77,8 @@ public class BorrowRestController {
 		}else {
 			result.put("result", "success");
 			int bookCount = borrowBO.countBorrowByBookId(bookId);
-			//여기에 reserve 목록이 있을 경우 최상단 user를 가져와 borrow처리시켜줘야 한다. book의 state는 바꿀 필요가 없다. 
-			if(reserveBO.getFirstReserve(bookId) != null) {
-				int reserveUserId = reserveBO.getFirstReserve(bookId).getUserId();
-				int userCount =  borrowBO.countBorrowByUserId(reserveUserId);
-				if(userCount>= 5){
-					// 1순위 예약자가 이미 책 5권을 전부 빌렸을 경우 다음 예약자로 넘어가야하는 건가?
-					result.put("result","error");
-					result.put("error_message","대출 가능 권수를 초과했습니다.");
-					// id 순위 찾아서 다음 예약자 찾는 query 만들어야 함. 위의 resulterror는 DB 넣고 나서 지우자.
-				}else {
-					borrowBO.createBorrow(reserveUserId, bookId);
-				}
+			if(reserveBO.getReserveList(bookId)!= null) {
+					borrowBO.createBorrow(reserveBO.getReserveAvailableUserId(bookId), bookId);
 			}else if(bookBO.getBookByBookId(bookId).getState().equals("예약 가능") && bookCount == 4) {
 				bookBO.changeStateToBorrowByBookId(bookId);
 			}

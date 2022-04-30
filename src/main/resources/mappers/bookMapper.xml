@@ -27,7 +27,7 @@ WHERE
  
  </select>
  
- <select id="selectBookByBookId" parameterType="int" resultType="com.ebook.book.model.Book">
+ <select id="selectBookByBookId" parameterType="Integer" resultType="com.ebook.book.model.Book">
  SELECT 
 	`id`
 	,`name`
@@ -68,6 +68,29 @@ ORDER BY
 	`createdAt` DESC
 LIMIT 4;
  
+ </select>
+ <select id="selectRecommendBookList" parameterType="int" resultType="com.ebook.book.model.Book">
+  SELECT 
+	`id`
+	,`name`
+	,`author`
+	,`publisher`
+	,`publishDate`
+	,`imagePath`
+	,`isbn`
+	,`page`
+	,`state`
+	,`info`
+	,`categoryId`
+	,`createdAt`
+	,`updatedAt`
+FROM
+	`book`
+WHERE
+	`categoryId` = #{categoryId}
+ORDER BY
+	`createdAt` DESC
+LIMIT 4;
  </select>
  <update id="updateStateToBorrowByBookId" parameterType="int">
  UPDATE

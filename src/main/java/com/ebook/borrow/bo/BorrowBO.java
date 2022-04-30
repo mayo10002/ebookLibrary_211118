@@ -59,4 +59,8 @@ public class BorrowBO {
 	public int deleteBorrowById(int id) {
 		return borrowDAO.deleteBorrowById(id);
 	}
+	//가장 최근에 빌린 책 select 
+	public Integer getLatestBorrowBookId(int userId) {
+		return borrowDAO.selectLatestBorrowBookId(userId);
+	}
 }

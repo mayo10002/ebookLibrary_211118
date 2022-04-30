@@ -10,3 +10,6 @@ footer {height:100px; color: gray;}
 .signInWrite {border: 1px solid #aaa; border-radius:5px;}
 .width-fix {width:1000px; }
 #resultBookInfo{width:400px;}
+.latest-book {padding:5px; padding-left:10px; width:200px; height:300px; border-radius:10px;}
+.recommend-book {padding:5px; width:200px; height:300px; border-radius:10px;}
+#userSelect {height:500px; box-shadow:0px 0px 20px gray; border-radius:10px;}

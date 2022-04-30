@@ -17,7 +17,7 @@
  	,NOW()
  )
  </insert>
- <select id="selectFirstReserve" parameterType="int" resultType="com.ebook.reserve.model.Reserve">
+ <select id="selectReserveList" parameterType="int" resultType="com.ebook.reserve.model.Reserve">
  SELECT 
  	`id`
  	,`userId`
@@ -27,10 +27,7 @@ FROM
 	`reserve`
 WHERE
 	`bookId` = #{bookId}
-ORDER BY 
-	`createdAt` ASC
-LIMIT 
-	1
+
  </select>
  <select id="countReserveByUserIdAndBookId" parameterType="map" resultType="int">
  SELECT 

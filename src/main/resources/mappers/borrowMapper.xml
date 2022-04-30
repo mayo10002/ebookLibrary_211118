@@ -112,6 +112,18 @@ AND
  WHERE
  	TIMESTAMPDIFF( DAY, NOW(), `returnAt`) &lt; 0
  </select>
+ <select id="selectLatestBorrowBookId" resultType="Integer">
+ SELECT 
+ 	`bookId`
+ FROM
+ 	`borrow`
+ WHERE 
+ 	`userId` = #{userId}
+ ORDER BY 
+ 	`createdAt` DESC
+ LIMIT 
+  	1
+ </select>
  <delete id="deleteBorrowById" parameterType="int">
  DELETE FROM 
 	`borrow`

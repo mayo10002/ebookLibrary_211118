@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+<div class="d-flex justify-content-center">
 <div class="width-fix m-5 p-5">
-	<div class="mb-4"><span class="font-weight-bold">검색 결과 3건</span></div> <!-- list count 넣어야 한다. -->
+	<div class="mb-4"><span class="font-weight-bold">검색 결과</span></div>
 	<div>
 		<c:forEach items="${searchViewList}" var="search">
 			<div id="searchResultList" class="d-flex justify-content-center align-items-center my-3">
@@ -27,18 +28,44 @@
 					</c:choose>
 				 </div>
 				<div id="resultBookmark">
-					<c:if test="${search.filledBookmark eq true}">
-					채워진 별
-					</c:if>
-					<c:if test="${search.filledBookmark eq false}">
-					비워진 별
+					<c:if test="${not empty userName}">
+						<div id="resultBookmark" class="ml-5">
+							<a href="#" id="bookmarkBtn" data-book-id="${search.book.id}">
+								<c:if test="${search.filledBookmark eq true}">
+									<img src="https://www.iconninja.com/files/647/837/222/star-icon.png" alt="채워진 별" width="30" height="30">
+								</c:if>
+								<c:if test="${search.filledBookmark eq false}">
+									<img src="https://www.iconninja.com/files/851/501/305/star-icon.png" alt="비워진 별" width="30" height="30">
+								</c:if>
+							</a>
+						</div>
 					</c:if>
 				</div>
 			</div>
 		</c:forEach>
 	</div>
 </div>
+</div>
 
 <script>
-/* //pathvariable 로 bookid를 넘겨야 한다. */
+$(document).ready(function(){
+	$('#bookmarkBtn').on('click',function(e){
+		e.preventDefault();
+		
+		let bookId = $(this).data('book-id');
+		$.ajax({
+			url : "/bookmark/" + bookId
+			,success: function(data){
+				if(data.result == "success"){
+					location.reload();
+				}else{
+					alert(data.error_message);
+				}
+			}
+			,error:function(e){
+				alert("즐겨찾기 동작에 실패했습니다. 관리자에게 문의해주세요.");
+			}
+		});
+	});
+})
 </script>
