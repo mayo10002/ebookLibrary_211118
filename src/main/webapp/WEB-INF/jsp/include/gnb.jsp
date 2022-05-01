@@ -15,7 +15,7 @@
 	<c:if test="${not empty userName}">
 	<div class="user-info d-flex">
 		<a href="/user/edit_view"><img src="https://www.iconninja.com/files/373/816/921/setting-icon.png" alt="환경설정" width="30" height="30" class="mr-3"></a>
-		<a href="/mypage/mypage_view/${userLoginId}"><span class="font-weight-bold d-1">${userName}님</span></a>
+		<a href="/mypage/${userId}"><span class="font-weight-bold d-1">${userName}님</span></a>
 		<a href="/user/sign_out" class="ml-2 font-weight-bold"><small>로그아웃</small></a>
 	</div>
 	</c:if>

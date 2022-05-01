@@ -47,6 +47,7 @@ public class BorrowRestController {
 			result.put("error_message","이미 대출 중인 책입니다.");
 		}else {
 			int row = borrowBO.createBorrow(userId, bookId);
+			result.put("result", "success");
 			if( row < 1) {
 				result.put("result", "error");
 				result.put("error_message", "도서 대출에 실패했습니다.");
@@ -55,7 +56,7 @@ public class BorrowRestController {
 		if(bookCount == 5) {
 			bookBO.changeStateToReserveByBookId(bookId);
 		}
-		result.put("result", "success");
+		
 		return result;
 	}
 

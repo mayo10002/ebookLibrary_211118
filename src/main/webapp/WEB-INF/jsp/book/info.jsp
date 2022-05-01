@@ -100,6 +100,7 @@ $(document).ready(function(){
 			,data:{"bookId":bookId}
 			,success: function(data){
 				if(data.result == "success"){
+					alert('책을 대출하였습니다.');
 					location.reload();
 				}else{
 					alert(data.error_message);

@@ -1,9 +1,12 @@
 package com.ebook.bookmark.bo;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ebook.bookmark.dao.BookmarkDAO;
+import com.ebook.bookmark.model.Bookmark;
 
 @Service
 public class BookmarkBO {
@@ -28,6 +31,9 @@ public class BookmarkBO {
 	}
 	public void deleteBookmarkByBookIdAndUserId(int userId, int bookId) {
 		bookmarkDAO.deleteBookmarkByBookIdAndUserId(userId, bookId);
+	}
+	public List<Bookmark> getBookmarkListByUserId(int userId){
+		return bookmarkDAO.selectBookmarkListByUserId(userId);
 	}
 }
 

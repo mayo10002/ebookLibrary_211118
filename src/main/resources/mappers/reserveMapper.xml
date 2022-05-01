@@ -29,6 +29,17 @@ WHERE
 	`bookId` = #{bookId}
 
  </select>
+ <select id="selectReserveListByUserId" parameterType="int" resultType="com.ebook.reserve.model.Reserve">
+SELECT 
+ 	`id`
+ 	,`userId`
+ 	,`bookId`
+	,`createdAt`
+FROM 
+	`reserve`
+WHERE
+	`userId` = #{userId}
+ </select>
  <select id="countReserveByUserIdAndBookId" parameterType="map" resultType="int">
  SELECT 
  	COUNT(1)

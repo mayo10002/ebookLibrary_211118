@@ -29,6 +29,17 @@ WHERE
  	`bookId`= #{bookId}
 
 </select>
+<select id="selectBookmarkListByUserId" parameterType="int" resultType="com.ebook.bookmark.model.Bookmark">
+SELECT
+	`id`
+	,`userId`
+	,`bookId`
+	,`createdAt`
+FROM 
+	`bookmark`
+WHERE
+	`userId` = #{userId}
+</select>
 <delete id="deleteBookmarkByBookIdAndUserId" parameterType="map">
 DELETE FROM
 	`bookmark`
