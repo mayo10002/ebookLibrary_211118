@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="com.ebook.apply.dao.ApplyDAO">
+ <insert id="insertApply" parameterType="map">
+ INSERT INTO
+ 	`apply`
+ (
+ 	`userId`
+	,`bookName`
+	,`bookAuthor`
+	,`bookPublisher`
+	,`bookPublishDate`
+	,`createdAt`
+ )
+ VALUES
+ (
+ 	#{userId}
+ 	,#{bookName}
+ 	,#{bookAuthor}
+ 	,#{bookPublisher}
+ 	,#{bookPublishDate}
+ 	,NOW()
+ )
+ </insert>
+ <select id="selectApplyList" resultType="com.ebook.apply.model.Apply">
+ SELECT
+ 	`id`
+	,`userId`
+	,`bookName`
+	,`bookAuthor`
+	,`bookPublisher`
+	,`bookPublishDate`
+	,`createdAt`
+FROM
+	`apply`
+ </select>
+ <delete id="deleteApply" parameterType="map">
+ DELETE FROM
+ 	`apply`
+ WHERE 
+ 	`id` = #{id}
+ AND
+ 	`userId` = #{userId} 
+ </delete>
+ </mapper>

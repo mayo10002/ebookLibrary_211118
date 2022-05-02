@@ -35,11 +35,21 @@
 			</div>
 		</div>
 		<div id="userSelect" class="col-4 p-3 m-3" >
-			<div><span class="d-3 font-weight-bold  m-2">${userName}님의<br>대출 현황을 확인하세요.</span></div>
-			<button type="button" id="myPageBtn" class="btn btn-primary w-100 m-2">마이페이지</button>
+			<c:if test="${not empty userName}">
+				<div><span class="d-3 font-weight-bold  m-2">${userName}님의<br>대출 현황을 확인하세요.</span></div>
+				<button type="button" id="myPageBtn" class="btn btn-primary w-100 m-2">마이페이지</button>
+			</c:if>
 			<div><span class="d-3 font-weight-bold m-2">신청하고 싶은 도서가 있나요?</span></div>
 			<button type="button" id="applyCreateViewBtn" class="btn btn-primary w-100 m-2">희망 도서 신청</button>
 			<button type="button" id="applyListViewBtn" class="btn btn-primary w-100 m-2">희망 도서 신청 목록</button>
 		</div> 
 	</div>
 </div>
+
+<script>
+$(document).ready(function(){
+	$('#applyCreateViewBtn').on('click',function(e){
+		//로그인 상태가 아닐 때 못 들어가게 하는 alert창을 띄워야 한다.
+	})
+});
+</script>

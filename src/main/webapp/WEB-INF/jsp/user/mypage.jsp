@@ -192,7 +192,6 @@ $(document).ready(function(){
 			}
 		});
 		
-		//예약 취소 버튼 넣기? 여기에 add remove Class 클래스 넣어서 만들면 될 것 같음
 	});
 	$('.reserveDeleteBtn').on('click',function(e){
 		e.preventDefault();
