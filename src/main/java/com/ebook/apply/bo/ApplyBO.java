@@ -17,8 +17,8 @@ public class ApplyBO {
 	private ApplyDAO applyDAO;
 	@Autowired
 	private UserBO userBO;
-	public int addApply(int userId, String bookName, String bookAuthor, String bookPublisher, Date bookPublishYear) {
-		return applyDAO.insertApply(userId, bookName, bookAuthor, bookPublisher, bookPublishYear);
+	public int addApply(int userId, String bookName, String bookAuthor, String bookPublisher, Date bookPublishDate) {
+		return applyDAO.insertApply(userId, bookName, bookAuthor, bookPublisher, bookPublishDate);
 	}
 	public List<Apply> getApplyList(){
 		return applyDAO.selectApplyList();

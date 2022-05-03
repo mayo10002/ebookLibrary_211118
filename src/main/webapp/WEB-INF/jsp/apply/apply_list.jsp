@@ -17,7 +17,7 @@
 					<c:forEach items="${applyList}" var="apply">
 						<tr>
 							<td>${apply.id}</td>
-							<td><a href="/apply/apply_deta">${apply.bookName}</td>
+							<td><a href="/apply/apply_detail_view/${apply.id}">${apply.bookName}</a></td>
 							<td>${apply.userId}</td>
 							<td><fmt:formatDate value="${apply.createdAt}" pattern="yyyy-MM-dd" /> </td>
 							<td>

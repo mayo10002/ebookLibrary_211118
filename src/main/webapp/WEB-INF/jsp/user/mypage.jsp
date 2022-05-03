@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <div class="d-flex justify-content-center">
 	<div class="width-fix">
-		<div class="button-box d-flex justify-content-center ml-4">
+		<div class="button-box d-flex ml-4 mt-4">
 			<button type="button" id="calendarViewBtn" class="btn btn-primary p-2 mr-4">캘린더 보기</button>
 			<button type="button" id="bookmarkViewBtn" class="btn btn-secondary p-2">즐겨찾기 목록</button>
 			<button type="button" id="borrowReserveViewBtn" class="btn btn-warning p-2 d-none">대출/예약 목록</button>

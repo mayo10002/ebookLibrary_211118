@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<!-- datepicker -->
+
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
@@ -17,26 +17,25 @@
 					</div>
 					<div id="applyBookNameBox">
 						<span class="apply-font-design text-danger">*</span><span class="apply-font-design">도서 제목:&nbsp;</span>
-						<input type="text" id="bookName" class="w-100 ml-4" placeholder="도서 제목을 입력하세요.">
+						<input type="text" id="bookName" class="w-50 ml-4" placeholder="도서 제목을 입력하세요.">
 					</div>
 					<div id="applyBookAuthorBox">
 						<span class="apply-font-design text-danger">*</span><span class="apply-font-design">도서 저자:&nbsp;</span>
-						<input type="text" id="bookAuthor" class="w-100 ml-4" placeholder="도서 저자를 입력하세요.">
+						<input type="text" id="bookAuthor" class="w-50 ml-4" placeholder="도서 저자를 입력하세요.">
 					</div>
 					<div id="applyBookPublisherBox">
 						<span class="apply-font-design text-danger">*</span><span class="apply-font-design">출판사:&nbsp;</span>
-						<input type="text" id="bookPublisher" class="w-100 ml-4" placeholder="출판사를 입력하세요.">
+						<input type="text" id="bookPublisher" class="w-50 ml-4" placeholder="출판사를 입력하세요.">
 					</div>
 					<div id="applyBookPublishDateBox">
 						<span class="apply-font-design text-danger">*</span><span class="apply-font-design">출판 년도:&nbsp;</span>
-						<input type="text" id="bookPublishYear" class="yearpicker w-100 ml-4" placeholder="출판년도를 선택하세요.">
+						<input type="text" id="bookPublishYear" class="w-50 ml-4" placeholder="출판년도를 선택하세요.">
 					</div>
 					<!-- 신청 / 취소 버튼 -->
 					<div class="d-flex justify-content-between">
 						<div class="d-flex justify-content-center mt-4 pb-1 mr-5">
 							<button type="button" id="CancelBtn" class="btn btn-secondary my-1 ml-4 w-50">뒤로가기</button>
-						</div>
-						<div class="d-flex justify-content-center pb-5 mr-5">
+						
 							<button type="button" id="ApplyBtn" class="btn btn-success ml-4 my-1 w-50">신청하기</button>
 						</div>
 					</div>
@@ -48,7 +47,7 @@
 
 <script>
 $(document).ready(function(){
-	 $('.yearpicker').datepicker({
+	 $('#bookPublishYear').datepicker({
          minViewMode: 'years'
          ,format: 'yyyy년'
          ,changeYear: true
@@ -56,6 +55,9 @@ $(document).ready(function(){
          ,language: "ko"
          ,title:"출판 년도"
        });
+	 $('#CancelBtn').on('click',function(e){
+		location.href="/book/main_view" 
+	 });
 	 $('#ApplyBtn').on('click',function(e){
 		let  bookName = $('#bookName').val().trim();
 		let  bookAuthor = $('#bookAuthor').val().trim();
@@ -79,18 +81,10 @@ $(document).ready(function(){
 			return;
 		}
 		
-		let formData = new FormData();
-		formData.append("bookName" , bookName);
-		formData.append("bookAuthor" , bookAuthor);
-		formData.append("bookPublisher" , bookPublisher);
-		formData.append("bookPublishYear" , bookPublishYear);
 		$.ajax({
 			type:"post"
 			,url:"/apply/create"
-			,data : {"bookName": bookName}
-					,{"bookAuthor": bookAuthor}
-					,{"bookPublisher": bookPublisher}
-					,{"bookPublishYear": bookPublishYear}
+			,data : {"bookName": bookName, "bookAuthor": bookAuthor, "bookPublisher": bookPublisher, "bookPublishYear": bookPublishYear}
 			,success : function(data){
 			   	if(data.result == "success"){
 			   		alert("희망 도서를 신청했습니다.");
@@ -98,7 +92,7 @@ $(document).ready(function(){
 			    }
 			}
 			,error : function(data){
-				alert("신청 등록에 실패했습니다. 다시 시도해 주세요.");
+				alert(data.error_message);
 			}
 			
 		});

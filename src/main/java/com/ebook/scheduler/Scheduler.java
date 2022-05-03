@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ebook.book.bo.BookBO;
 import com.ebook.borrow.bo.BorrowBO;
 import com.ebook.borrow.model.Borrow;
+import com.ebook.reserve.bo.ReserveBO;
 
 @Component
 @RequestMapping("/delete_auto")
@@ -22,6 +23,8 @@ public class Scheduler {
 	private BorrowBO borrowBO;
 	@Autowired
 	private BookBO bookBO;
+	@Autowired
+	private ReserveBO reserveBO;
 	//밤 12시마다 자동 반납 : 날짜 차이가 -1이 되는 날(반납일 당일까지는 대출 상태)
 	@Scheduled(cron = "0 0 0 * * *")
 	public Map<String, Object> dayDelete(){
@@ -35,17 +38,17 @@ public class Scheduler {
 			if( row < 1) {
 				result.put("result", "error");
 				result.put("error_message", "도서 반납에 실패했습니다.");
-				return result;
-				
 			}else {
-				
+				result.put("result", "success");
 				int bookCount = borrowBO.countBorrowByBookId(borrow.getBookId());
-				if(bookBO.getBookByBookId(borrow.getBookId()).getState().equals("예약 가능") && bookCount == 4) {
+				if(reserveBO.getReserveList(borrow.getBookId())!= null) {
+						borrowBO.createBorrow(reserveBO.getReserveAvailableUserId(borrow.getBookId()), borrow.getBookId());
+						reserveBO.deleteReserve(reserveBO.getReserveAvailableUserId(borrow.getBookId()),  borrow.getBookId());
+				}else if(bookBO.getBookByBookId(borrow.getBookId()).getState().equals("예약 가능") && bookCount == 4) {
 					bookBO.changeStateToBorrowByBookId(borrow.getBookId());
 				}
 			}
 		}
-		result.put("result", "success");
 		return result;		
 	}
 }

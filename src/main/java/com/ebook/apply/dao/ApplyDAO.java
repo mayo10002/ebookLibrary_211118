@@ -15,7 +15,7 @@ public interface ApplyDAO {
 			@Param("bookName")String bookName, 
 			@Param("bookAuthor")String bookAuthor, 
 			@Param("bookPublisher")String bookPublisher, 
-			@Param("bookPublishYear")Date bookPublishDate);
+			@Param("bookPublishDate")Date bookPublishDate);
 	public List<Apply> selectApplyList();
 	public int deleteApply(
 			@Param("id")int id, 

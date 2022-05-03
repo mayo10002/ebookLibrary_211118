@@ -80,6 +80,7 @@ public class BorrowRestController {
 			int bookCount = borrowBO.countBorrowByBookId(bookId);
 			if(reserveBO.getReserveList(bookId)!= null) {
 					borrowBO.createBorrow(reserveBO.getReserveAvailableUserId(bookId), bookId);
+					reserveBO.deleteReserve(reserveBO.getReserveAvailableUserId(bookId), bookId);
 			}else if(bookBO.getBookByBookId(bookId).getState().equals("예약 가능") && bookCount == 4) {
 				bookBO.changeStateToBorrowByBookId(bookId);
 			}

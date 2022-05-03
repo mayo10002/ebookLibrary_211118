@@ -46,10 +46,8 @@ public class ApplyController {
 	public String detailApplyView(
 			@PathVariable("applyId") int applyId,
 			Model model) {
-		// PathVariable id >  getApplyList에서 그냥 뽑아서 보자
 		DetailView detailview = applyBO.generateDetailViewById(applyId);
 		model.addAttribute("detailview",detailview);
-		// viewList: user > userName apply BO. 
 		model.addAttribute("viewName","apply/apply_detail");
 		return "template/layout";
 	}
