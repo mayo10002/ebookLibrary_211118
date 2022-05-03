@@ -12,11 +12,8 @@
 			<div id="applyCreateBox" class="bg-white mt-5">
 				<h1 class="m-2 text-center p-5">희망 도서 신청</h1>
 				<div class="pl-5 mr-4">
-					<div id="NameTodayBox">
-						<span class="apply-font-design">&nbsp;신청자: ${userName}<br>
-						&nbsp;신청 날짜:
-						<c:set var="today" value="<%=new java.util.Date()%>" />
-						<c:set var="date"><fmt:formatDate value="${today}" pattern="yyyy-MM-dd" /></c:set> </span>
+					<div id="NameBox">
+						<span class="apply-font-design">&nbsp;신청자: ${userName}<br></span>
 					</div>
 					<div id="applyBookNameBox">
 						<span class="apply-font-design text-danger">*</span><span class="apply-font-design">도서 제목:&nbsp;</span>

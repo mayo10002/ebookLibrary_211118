@@ -16,6 +16,7 @@ footer {height:100px; color: gray;}
 .mypage-box-width{width:700px;}
 .apply-font-design {font-weight:bold; font-size:15px; }
 
+#applyCreateBox { box-shadow:0px 0px 20px gray; border-radius:10px;}
 .datepicker-days {display:none;}
 .datepicker-months {display:none;}
 .datepicker-years {display:block;}

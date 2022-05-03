@@ -45,6 +45,18 @@ public class ApplyRestController {
 	public Map<String, Object> deleteApply(
 			@RequestParam("applyId")int applyId, 
 			HttpSession session){
+		int userId = (int)session.getAttribute("userId");
+		//insert DB
+		Map<String, Object> result = new HashMap<>();
+		int row = applyBO.deleteApply(applyId, userId);
 		
+		if( row < 1 ) {
+			result.put("result", "error");
+			result.put("error_message","희망 도서 신청 게시글 삭제에 실패했습니다.");
+		}else {
+			result.put("result", "success");
+		}
+		
+		return result;
 	}
 }

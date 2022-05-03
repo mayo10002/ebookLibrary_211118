@@ -20,4 +20,5 @@ public interface ApplyDAO {
 	public int deleteApply(
 			@Param("id")int id, 
 			@Param("userId")int userId);
+	public Apply selectApplyById(int id);
 }

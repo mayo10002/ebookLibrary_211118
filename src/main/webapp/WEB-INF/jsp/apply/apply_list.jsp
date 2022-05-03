@@ -12,13 +12,21 @@
 						<th>신청 도서</th>
 						<th>신청자</th>
 						<th>작성일</th>
+						<th></th>
 					</tr>
-					<tr>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr>
+					<c:forEach items="${applyList}" var="apply">
+						<tr>
+							<td>${apply.id}</td>
+							<td><a href="/apply/apply_deta">${apply.bookName}</td>
+							<td>${apply.userId}</td>
+							<td><fmt:formatDate value="${apply.createdAt}" pattern="yyyy-MM-dd" /> </td>
+							<td>
+								<c:if test="${userId eq apply.userId}">
+									<button type="button" class="btn btn-danger" id="deleteBtn">삭제</button>
+								</c:if>
+							</td>
+						</tr>
+					</c:forEach>
 				</table>
 			</div>
 		</div>	

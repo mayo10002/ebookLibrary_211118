@@ -8,11 +8,15 @@ import org.springframework.stereotype.Service;
 
 import com.ebook.apply.dao.ApplyDAO;
 import com.ebook.apply.model.Apply;
+import com.ebook.apply.model.DetailView;
+import com.ebook.user.bo.UserBO;
 
 @Service
 public class ApplyBO {
 	@Autowired
 	private ApplyDAO applyDAO;
+	@Autowired
+	private UserBO userBO;
 	public int addApply(int userId, String bookName, String bookAuthor, String bookPublisher, Date bookPublishYear) {
 		return applyDAO.insertApply(userId, bookName, bookAuthor, bookPublisher, bookPublishYear);
 	}
@@ -21,5 +25,14 @@ public class ApplyBO {
 	}
 	public int deleteApply(int id, int userId) {
 		return applyDAO.deleteApply(id, userId);
+	}
+	public Apply getApplyById(int id) {
+		return applyDAO.selectApplyById(id);
+	}
+	public DetailView generateDetailViewById(int id) {
+		DetailView detailview = new DetailView();
+		detailview.setUser(userBO.getUser(getApplyById(id).getUserId()));
+		detailview.setApply(getApplyById(id));
+		return detailview;
 	}
 }

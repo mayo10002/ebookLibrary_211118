@@ -47,6 +47,7 @@ $(document).ready(function(){
 		let password = $('#password').val();
 		if(password == ''){
 			alert('패스워드를 입력해주세요.');
+			return;
 		}
 		console.log(loginId);
 		console.log(password);
