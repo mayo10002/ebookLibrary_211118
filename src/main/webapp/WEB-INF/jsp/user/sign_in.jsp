@@ -59,10 +59,12 @@ $(document).ready(function(){
 				if(data.result == "success"){
 					// alert("성공");
 					location.href = "/book/main_view";
+				}else{
+					alert(data.error_message);
 				}
 			}
 			,error: function(data){
-				alert(data.error_message);
+				alert("로그인이 되지 않았습니다. 관리자에게 문의해주세요.");
 			}
 		});
 	});

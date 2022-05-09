@@ -10,7 +10,9 @@
 		</div>
 	</form>
 	<c:if test="${empty userName}">
-		<div id="emptyUserBox" class="mr-2"></div>
+		<div id="emptyUserBox" class="mr-2">
+			<a href="/user/sign_in_view" class="font-weight-bold">로그인</a>
+		</div>
 	</c:if>
 	<c:if test="${not empty userName}">
 	<div class="user-info d-flex">

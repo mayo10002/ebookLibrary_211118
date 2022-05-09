@@ -20,10 +20,14 @@ public class BookController {
 	@RequestMapping("/main_view")
 	public String mainView(Model model,
 			HttpSession session) {
-		int userId = (int)session.getAttribute("userId");
+		Integer userId = (Integer)session.getAttribute("userId");
+		if (userId != null) {
+			
+			List<Book> recommendBook = bookBO.getRecommendBookList(userId);
+			model.addAttribute("recommendBook",recommendBook);
+		}
 		List<Book> latestBook = bookBO.getLatestBookList();
-		List<Book> recommendBook = bookBO.getRecommendBookList(userId);
-		model.addAttribute("recommendBook",recommendBook);
+		
 		model.addAttribute("latestBook",latestBook);
 		model.addAttribute("viewName","book/main");
 		return "template/layout";

@@ -10,8 +10,8 @@ footer {height:100px; color: gray;}
 .signInWrite {border: 1px solid #aaa; border-radius:5px;}
 .width-fix {width:1000px; }
 #resultBookInfo{width:400px;}
-.latest-book {padding:5px; padding-left:10px; width:200px; height:300px; border-radius:10px;}
-.recommend-book {padding:5px; width:200px; height:300px; border-radius:10px;}
+.latest-book {padding:5px; padding-left:10px; width:200px; height:300px; border-radius:10px; background-color:#eee;}
+.recommend-book {padding:5px; width:200px; height:300px; border-radius:10px; background-color:#eee;}
 #userSelect {height:500px; box-shadow:0px 0px 20px gray; border-radius:10px;}
 .mypage-box-width{width:700px;}
 .apply-font-design {font-weight:bold; font-size:15px; }
@@ -21,3 +21,6 @@ footer {height:100px; color: gray;}
 .datepicker-days {display:none;}
 .datepicker-months {display:none;}
 .datepicker-years {display:block;}
+
+a {text-decoration:none;color:black;}
+a :hover {text-decoration:none; color:darkblue;}

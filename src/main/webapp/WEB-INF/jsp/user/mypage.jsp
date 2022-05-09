@@ -15,7 +15,7 @@
 			<c:forEach items="${borrowViewList}" var="borrow">
 				<div class="borrow-list d-flex align-items-center my-3">
 					<div><a href="/search/info_view/${borrow.book.id}"><img src="${borrow.book.imagePath}" alt="도서 이미지" width="100" height="150"></a></div>
-					<div class="borrowBookInfo mypage-box-width">
+					<div class="borrowBookInfo mypage-box-width ml-3">
 						<div><a href="/search/info_view/${borrow.book.id}"><span class="font-weight-bold font-size-larger">${borrow.book.name}</span></a></div>
 						<div>${borrow.book.author} 지음</div>
 						<div>출판사 | 
@@ -37,7 +37,7 @@
 			<c:forEach items="${reserveViewList}" var="reserve">
 				<div class="reserve-list d-flex align-items-center my-3">
 					<div><a href="/search/info_view/${reserve.book.id}"><img src="${reserve.book.imagePath}" alt="도서 이미지" width="100" height="150"></a></div>
-					<div class="reserveBookInfo mypage-box-width">
+					<div class="reserveBookInfo mypage-box-width ml-3">
 						<div><a href="/search/info_view/${reserve.book.id}"><span class="font-weight-bold font-size-larger">${reserve.book.name}</span></a></div>
 						<div>${reserve.book.author} 지음</div>
 						<div>출판사 | 
@@ -45,8 +45,8 @@
 						<div>분류: ${reserve.category.categoryName}</div>
 						<div>반납 예정일: <fmt:formatDate var="returnInfo" value="${reserve.returnInfo}" pattern="yyyy-MM-dd" />${returnInfo} </div>
 					</div>
-				</div>
 				<button type="button" class="reserveDeleteBtn btn btn-danger mx-2" data-book-id="${reserve.book.id}">예약 취소</button>
+				</div>
 			</c:forEach>
 		</div>
 		<hr>
@@ -55,7 +55,7 @@
 			<c:forEach items="${bookmarkViewList}" var="bookmark">
 				<div class="bookmark-list d-flex align-items-center my-3">
 					<div><a href="/search/info_view/${bookmark.book.id}"><img src="${bookmark.book.imagePath}" alt="도서 이미지" width="100" height="150"></a></div>
-					<div class="bookmarkBookInfo mypage-box-width">
+					<div class="bookmarkBookInfo mypage-box-width ml-3">
 							<div><a href="/search/info_view/${bookmark.book.id}"><span class="font-weight-bold font-size-larger">${bookmark.book.name}</span></a></div>
 							<div>${bookmark.book.author} 지음</div>
 							<div>출판사 | 
@@ -100,15 +100,18 @@
 <script>
 $(document).ready(function(){
 	// 1. 대출/ 예약 리스트 , 즐겨찾기 리스트 버튼
-	$('.bookmarkViewBtn').on('click',function(e){
-		e.preventDefault();
+	$('#bookmarkViewBtn').on('click',function(e){
 		$('#borrowReserveBox').addClass('d-none');
 		$('#bookmarkBox').removeClass('d-none');
+		$('#bookmarkViewBtn').addClass('d-none');
+		$('#borrowReserveViewBtn').removeClass('d-none');
 	});
-	$('.borrowReserveViewBtn').on('click',function(e){
-		e.preventDefault();
+	$('#borrowReserveViewBtn').on('click',function(e){
+		
 		$('#bookmarkBox').addClass('d-none');
 		$('#borrowReserveBox').removeClass('d-none');
+		$('#borrowReserveViewBtn').addClass('d-none');
+		$('#bookmarkViewBtn').removeClass('d-none');
 	});
 	// 2. 반납, 연장
 	$('.borrowDeleteBtn').on('click',function(e){

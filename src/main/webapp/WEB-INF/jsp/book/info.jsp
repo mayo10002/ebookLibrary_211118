@@ -111,5 +111,26 @@ $(document).ready(function(){
 			}
 		});
 	});
+	$('#reserveBtn').on('click',function(e){
+		e.preventDefault();
+		let bookId = $(this).data('book-id');
+		$.ajax({
+			type:"post"
+			,url: "/reserve/" + bookId
+			,data:{"bookId":bookId}
+			,success: function(data){
+				if(data.result == "success"){
+					alert('책을 예약하였습니다.');
+					location.reload();
+				}else{
+					alert(data.error_message);
+				}
+			}
+			,error:function(e){
+				alert("예약에 실패했습니다. 관리자에게 문의해주세요.");
+			}
+		});
+		
+	});
 });
 </script>

@@ -8,7 +8,7 @@
 			<div class="d-flex">
 				<c:forEach items="${latestBook}" var="latest">
 					<div class="d-flex justify-content-center mx-1 my-3">
-						<div class="latest-book bg-secondary">
+						<div class="latest-book">
 						<!-- 신간 추천 -->
 							<a href="/search/info_view/${latest.id}"><img src="${latest.imagePath}" alt="표지" width="120" height="180" class="ml-4 pl-3"></a><br>
 							<a href="/search/info_view/${latest.id}"><span class="font-weight-bold">${latest.name}</span></a><br>
@@ -23,7 +23,7 @@
 			<div class="d-flex">
 				<c:forEach items="${recommendBook}" var="recommend">
 					<div class="d-flex justify-content-center mx-1 my-3">
-						<div class="recommend-book bg-secondary">
+						<div class="recommend-book">
 						<!-- 연관 추천 :최근에 빌렸던 책 하나의 category와 동일한 category의 책을 신간 순으로 골라 추천한다.-->
 							<a href="/search/info_view/${recommend.id}"><img src="${recommend.imagePath}" alt="표지" width="120" height="180" class="ml-4 pl-3"></a><br>
 							<a href="/search/info_view/${recommend.id}"><span class="font-weight-bold">${recommend.name}</span></a><br>

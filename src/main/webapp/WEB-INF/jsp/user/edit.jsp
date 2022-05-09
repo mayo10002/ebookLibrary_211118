@@ -89,9 +89,12 @@ $(document).ready(function(){
 	});
 	$('#passwordConfirmBtn').on('click',function(e){
 		e.preventDefault();
+		$('#editConfirmModal').removeClass('d-none');
+		$('#editConfirmModal').addClass('fade');
 		let loginId = $('#loginId').val().trim();
 		if(loginId == ''){
 			alert('아이디를 입력해주세요.');
+			e.preventDefault();
 			return;
 		}
 		let name = $('#name').val().trim();

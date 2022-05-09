@@ -87,7 +87,7 @@ public class UserRestController {
 			session.setAttribute("userPhoneNumber", user.getPhoneNumber());
 		}else {
 			result.put("result", "error");
-			result.put("error_message", "존재하지 않는 사용자입니다.");
+			result.put("error_message", "존재하지 않는 사용자입니다.아이디와 비밀번호를 다시 확인해주세요.");
 		}
 		
 		return result;

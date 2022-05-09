@@ -25,7 +25,7 @@ public class Scheduler {
 	private BookBO bookBO;
 	@Autowired
 	private ReserveBO reserveBO;
-	//밤 12시마다 자동 반납 : 날짜 차이가 -1이 되는 날(반납일 당일까지는 대출 상태)
+	// 서버 작동 중일 경우 밤 12시마다 자동 반납 : 날짜 차이가 -1이 되는 날(반납일 당일까지는 대출 상태)
 	@Scheduled(cron = "0 0 0 * * *")
 	public Map<String, Object> dayDelete(){
 		Map<String, Object> result = new HashMap<>();
@@ -41,7 +41,7 @@ public class Scheduler {
 			}else {
 				result.put("result", "success");
 				int bookCount = borrowBO.countBorrowByBookId(borrow.getBookId());
-				if(reserveBO.getReserveList(borrow.getBookId())!= null) {
+				if(reserveBO.getReserveList(borrow.getBookId()).isEmpty() == false) {
 						borrowBO.createBorrow(reserveBO.getReserveAvailableUserId(borrow.getBookId()), borrow.getBookId());
 						reserveBO.deleteReserve(reserveBO.getReserveAvailableUserId(borrow.getBookId()),  borrow.getBookId());
 				}else if(bookBO.getBookByBookId(borrow.getBookId()).getState().equals("예약 가능") && bookCount == 4) {
