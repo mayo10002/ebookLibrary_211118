@@ -54,6 +54,7 @@ $(document).ready(function(){
          ,showAnim: "clip"
          ,language: "ko"
          ,title:"출판 년도"
+         //여기 수정 필요
        });
 	 $('#CancelBtn').on('click',function(e){
 		location.href="/book/main_view" 

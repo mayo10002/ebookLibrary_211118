@@ -57,6 +57,7 @@ $(document).ready(function(){
 		e.preventDefault();
 		let loginId = $('#loginId').val().trim();
 		
+		//경고 문구 초기화
 		$('#idCheckLength').addClass('d-none');
 		$('#idCheckDuplicated').addClass('d-none');
 		$('#idCheckOk').addClass('d-none');
@@ -87,6 +88,7 @@ $(document).ready(function(){
 	// 가입 버튼
 	$('#signUpBtn').on('click',function(e){
 		let loginId = $('#loginId').val().trim();
+		
 		if(loginId == ''){
 			alert('아이디를 입력해주세요.');
 			return;

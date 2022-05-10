@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
 <div class="d-flex justify-content-center">
 	<div class="width-fix">
 		<div class="d-flex justify-content-center">
@@ -24,11 +27,11 @@
 					</div>
 					<div id="bookIsbnBox">
 						<span class="apply-font-design">isbn:</span>
-						<input type="text" id="bookIsbn" class="w-50 ml-4" placeholder="출판일을 선택하세요.">
+						<input type="text" id="bookIsbn" class="w-50 ml-4" placeholder="isbn을 입력하세요.">
 					</div>
 					<div id="bookPageBox">
 						<span class="apply-font-design">페이지 수:</span>
-						<input type="text" id="bookPage" class="w-50 ml-4" placeholder="출판일을 선택하세요.">
+						<input type="number" id="bookPage" class="w-50 ml-4" placeholder="출판일을 선택하세요.">
 					</div>
 					<div id="bookInfoBox">
 						<span class="apply-font-design">책 정보:</span><br>
@@ -36,20 +39,24 @@
 					</div>
 					<div id="bookCategoryBox">
 						<span class="apply-font-design">카테고리 선택:</span>
-						<datalist id="bookCategory">
-							<option value="1" label="">총류</option>
-							<option value="2" label="">철학</option>
-							<option value="3" label="">종교</option>
-							<option value="4" label="">사회과학</option>
-							<option value="5" label="">자연과학</option>
-							<option value="6" label="">기술과학</option>
-							<option value="7" label="">예술</option>
-							<option value="8" label="">언어</option>
-							<option value="9" label="">문학</option>
-							<option value="10" label="">역사</option>
-						</datalist>
+						<label for="general"><input type="radio" name="category" value="1" id="general" checked>총류</label>
+      					<label for="philosophy"><input type="radio" name="category" value="2" id="philosophy">철학</label>
+      					<label for="religion"><input type="radio" name="category" value="3" id="religion">종교</label>
+      					<label for="socialScience"><input type="radio" name="category" value="4" id="socialScience">사회과학</label>
+      					<br>
+      					<label for="pureScience"><input type="radio" name="category" value="5" id="pureScience">자연과학</label>
+      					<label for="technology"><input type="radio" name="category" value="6" id="technology">기술과학</label>
+      					<label for="art"><input type="radio" name="category" value="7" id="art">예술</label>
+      					<label for="language"><input type="radio" name="category" value="8" id="language">언어</label>
+      					<br>
+      					<label for="literature"><input type="radio" name="category" value="9" id="literature">문학</label>
+      					<label for="history"><input type="radio" name="category" value="10" id="history">역사</label>
 					</div>
-					
+					<div id="fileUpload">
+						<input type="file" id="file" class="d-none" accept=".gif,.jpg,.jpeg,.png"> 
+						<a href="#" id="fileUploadBtn" > 
+						<img src="https://www.iconninja.com/files/505/794/492/image-icon.png" alt="이미지 삽입" width="30"></a>
+					</div>
 					<!-- 신청 / 취소 버튼 -->
 					<div class="d-flex justify-content-between">
 						<div class="d-flex justify-content-center mt-4 pb-1 mr-5">
@@ -63,3 +70,27 @@
 		</div>	
 	</div>
 </div>
+
+<script>
+$(document).ready(function(){
+	$('#bookPublishDate').datepicker({
+        minViewMode: 'years'
+        ,format: 'yyyy-MM-dd'
+        ,changeYear: true
+        ,showAnim: "clip"
+        ,language: "ko"
+        ,title:"출판 날짜"
+        //여기 수정 필요
+      });
+	let bookname = $('#bookName').val().trim();
+	let bookAuthor = $('#bookAuthor').val().trim();
+	let bookPublisher = $('#bookPublisher').val().trim();
+	let bookPublishDate = $('#bookPublishDate').val().trim(); 
+	let bookIsbn = $('#bookIsbn').val().trim();
+	let bookPage = $('#bookPage').val().trim();
+	let bookInfo = $('#bookInfo').val();
+	let bookCategory =$('[name=category]').val();
+	
+});
+
+</script>

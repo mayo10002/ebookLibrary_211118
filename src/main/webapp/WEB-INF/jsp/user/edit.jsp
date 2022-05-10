@@ -88,32 +88,33 @@ $(document).ready(function(){
 		});
 	});
 	$('#passwordConfirmBtn').on('click',function(e){
-		e.preventDefault();
-		$('#editConfirmModal').removeClass('d-none');
-		$('#editConfirmModal').addClass('fade');
 		let loginId = $('#loginId').val().trim();
-		if(loginId == ''){
-			alert('아이디를 입력해주세요.');
-			e.preventDefault();
-			return;
-		}
 		let name = $('#name').val().trim();
-		if(name == ''){
-			alert('이름을 입력해주세요.');
-			return;
-		}
 		let phoneNumber = $('#phoneNumber').val().trim();
-		if  (phoneNumber == ''){
-			alert('전화번호를 입력해주세요.');
+		$('#editConfirmModal').on('show.bs.modal', function (e){
+				
+			if(loginId == ''){
+				alert('아이디를 입력해주세요.');
+				e.preventDefault();
+				return;
+			}
+			if(name == ''){
+				alert('이름을 입력해주세요.');
+				
+				return;
+			}
+			if  (phoneNumber == ''){
+				alert('전화번호를 입력해주세요.');
+				return;
+			}
+			
+			if($('#idCheckOk').hasClass('d-none')){
+				alert('id 중복확인을 다시 해주세요.');
+				return;
+			}
 			return;
-		}
 		
-		
-		
-		if($('#idCheckOk').hasClass('d-none')){
-			alert('id 중복확인을 다시 해주세요.');
-			return;
-		}
+		});
 		
 		
 	});
