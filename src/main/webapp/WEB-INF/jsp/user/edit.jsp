@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <div class="d-flex justify-content-center">
-	<div class="w-50 d-flex justify-content-center">
+	<div class="small-width d-flex justify-content-center">
 		<div id="signBox" class="bg-white w-75 mt-5">
 			<h1 class="m-2 text-center p-5">회원 정보 수정</h1>
 			<div class="pl-5">
@@ -88,34 +88,41 @@ $(document).ready(function(){
 		});
 	});
 	$('#passwordConfirmBtn').on('click',function(e){
+		
+		
 		let loginId = $('#loginId').val().trim();
 		let name = $('#name').val().trim();
 		let phoneNumber = $('#phoneNumber').val().trim();
-		$('#editConfirmModal').on('show.bs.modal', function (e){
-				
-			if(loginId == ''){
-				alert('아이디를 입력해주세요.');
-				e.preventDefault();
-				return;
-			}
-			if(name == ''){
-				alert('이름을 입력해주세요.');
-				
-				return;
-			}
-			if  (phoneNumber == ''){
-				alert('전화번호를 입력해주세요.');
-				return;
-			}
+		if(loginId == ''){
 			
-			if($('#idCheckOk').hasClass('d-none')){
-				alert('id 중복확인을 다시 해주세요.');
-				return;
-			}
+			alert('아이디를 입력해주세요.');
+			$('#editConfirmModal').on('show.bs.modal', function (e){
+				e.preventDefault();
+			});
 			return;
+		}
+		if(name == ''){
+			alert('이름을 입력해주세요.');
+			$('#editConfirmModal').on('show.bs.modal', function (e){
+				e.preventDefault();
+			});
+			return;
+		}
+		if  (phoneNumber == ''){
+			alert('전화번호를 입력해주세요.');
+			$('#editConfirmModal').on('show.bs.modal', function (e){
+				e.preventDefault();
+			});
+			return;
+		}
 		
-		});
-		
+		if($('#idCheckOk').hasClass('d-none')){
+			alert('id 중복확인을 다시 해주세요.');
+			$('#editConfirmModal').on('show.bs.modal', function (e){
+				e.preventDefault();
+			});
+			return;
+		}
 		
 	});
 	$('#editConfirmModal #editBtn').on('click',function(){
