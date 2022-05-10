@@ -31,7 +31,7 @@
 				</div>
 				<!-- 비밀번호 확인 모달 진입 버튼 -->
 				<div class="d-flex justify-content-center pb-5 mr-5">
-					<button type="button" id="passwordConfirmBtn" class="btn btn-primary my-3 w-25" data-toggle="modal" data-target="#editConfirmModal">수정하기</button>
+					<button type="button" id="passwordConfirmBtn" class="btn btn-primary my-3 w-25">수정하기</button>
 				</div>
 			</div>
 		</div>
@@ -89,40 +89,32 @@ $(document).ready(function(){
 	});
 	$('#passwordConfirmBtn').on('click',function(e){
 		
-		
 		let loginId = $('#loginId').val().trim();
 		let name = $('#name').val().trim();
 		let phoneNumber = $('#phoneNumber').val().trim();
 		if(loginId == ''){
 			
 			alert('아이디를 입력해주세요.');
-			$('#editConfirmModal').on('show.bs.modal', function (e){
-				e.preventDefault();
-			});
+			
 			return;
 		}
 		if(name == ''){
 			alert('이름을 입력해주세요.');
-			$('#editConfirmModal').on('show.bs.modal', function (e){
-				e.preventDefault();
-			});
+			
 			return;
 		}
 		if  (phoneNumber == ''){
 			alert('전화번호를 입력해주세요.');
-			$('#editConfirmModal').on('show.bs.modal', function (e){
-				e.preventDefault();
-			});
+			
 			return;
 		}
 		
 		if($('#idCheckOk').hasClass('d-none')){
 			alert('id 중복확인을 다시 해주세요.');
-			$('#editConfirmModal').on('show.bs.modal', function (e){
-				e.preventDefault();
-			});
+			
 			return;
 		}
+		$('#editConfirmModal').modal('show');
 		
 	});
 	$('#editConfirmModal #editBtn').on('click',function(){
