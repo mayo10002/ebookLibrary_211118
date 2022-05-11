@@ -35,6 +35,7 @@
 	,`createdAt`
 FROM
 	`apply`
+ORDER BY `id` DESC
  </select>
  <select id="selectApplyById" parameterType="int" resultType="com.ebook.apply.model.Apply">
   SELECT

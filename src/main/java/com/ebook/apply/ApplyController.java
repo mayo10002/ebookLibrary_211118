@@ -1,5 +1,6 @@
 package com.ebook.apply;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,12 +12,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.ebook.apply.bo.ApplyBO;
 import com.ebook.apply.model.Apply;
 import com.ebook.apply.model.DetailView;
+import com.ebook.user.bo.UserBO;
+import com.ebook.user.model.User;
 
 @RequestMapping("/apply")
 @Controller
 public class ApplyController {
 	@Autowired
 	private ApplyBO applyBO;
+	@Autowired
+	private UserBO userBO;
 	/**
 	 * 희망 도서 신청
 	 * @param model
@@ -37,9 +42,10 @@ public class ApplyController {
 	@RequestMapping("/apply_list_view")
 	public String listApplyView(
 			Model model) {
-		List<Apply> applyList = applyBO.getApplyList();
+		List<DetailView> applyList = applyBO.generateListView();
 		model.addAttribute("applyList",applyList);
-		model.addAttribute("viewName","apply/apply_list");
+		
+ 		model.addAttribute("viewName","apply/apply_list");
 		return "template/layout";
 	}
 	@RequestMapping("/apply_detail_view/{applyId}")

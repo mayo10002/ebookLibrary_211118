@@ -4,7 +4,7 @@
 <div class="d-flex justify-content-center">
 	<div class="w-75 d-flex justify-content-center">
 		<div id="bookRecommend col-8">
-			<div><h2>신간 도서</h2></div>
+			<div class="mt-3"><h2>신간 도서</h2></div>
 			<div class="d-flex">
 				<c:forEach items="${latestBook}" var="latest">
 					<div class="d-flex justify-content-center mx-1 my-3">
@@ -34,7 +34,7 @@
 				</c:forEach>
 			</div>
 		</div>
-		<div id="userSelect" class="col-4 p-3 m-3" >
+		<div id="userSelect" class="col-4 p-3 m-3 pr-4" >
 			<c:if test="${not empty userName}">
 				<div><span class="d-3 font-weight-bold  m-2">${userName}님의<br>대출 현황을 확인하세요.</span></div>
 				<button type="button" id="myPageBtn" data-user-id="${userId}" class="btn btn-primary w-100 m-2">마이페이지</button>

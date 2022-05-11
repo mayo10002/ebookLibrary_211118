@@ -1,5 +1,6 @@
 package com.ebook.apply.bo;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -28,6 +29,18 @@ public class ApplyBO {
 	}
 	public Apply getApplyById(int id) {
 		return applyDAO.selectApplyById(id);
+	}
+	public List<DetailView> generateListView() {
+		List<DetailView> applyListView = new ArrayList<>();
+		
+		List<Apply> applyList = getApplyList();
+		for(Apply apply : applyList) {
+			DetailView listview = new DetailView();
+			listview.setUser(userBO.getUser(apply.getUserId()));
+			listview.setApply(apply);
+			applyListView.add(listview);
+		}
+		return applyListView;
 	}
 	public DetailView generateDetailViewById(int id) {
 		DetailView detailview = new DetailView();

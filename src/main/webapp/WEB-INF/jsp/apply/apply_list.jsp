@@ -6,6 +6,7 @@
 	<div class="width-fix">
 		<div class="d-flex justify-content-center">
 			<div id="applyList" class="small-width">
+			<button type="button" class="btn btn-success my-3" id="applyCreateBtn">신청하기</button><br>
 				<table id="apply-book" class="table text-center w-100" >
 					<tr>
 						<th>번호</th>
@@ -14,21 +15,21 @@
 						<th>작성일</th>
 						<th></th>
 					</tr>
-					<c:forEach items="${applyList}" var="apply">
-						<tr>
-							<td>${apply.id}</td>
-							<td><a href="/apply/apply_detail_view/${apply.id}">${apply.bookName}</a></td>
-							<td>${apply.userId}</td>
-							<td><fmt:formatDate value="${apply.createdAt}" pattern="yyyy-MM-dd" /> </td>
+					<c:forEach items="${applyList}" var="applyList">
+						<tr class="table-height">
+							<td>${applyList.apply.id}</td>
+							<td><a href="/apply/apply_detail_view/${applyList.apply.id}">${applyList.apply.bookName}</a></td>
+							<td>${applyList.user.name}</td>
+							<td><fmt:formatDate value="${applyList.apply.createdAt}" pattern="yyyy-MM-dd" /> </td>
 							<td>
-								<c:if test="${userId eq apply.userId}">
-									<button type="button" class="btn btn-danger deleteBtn" data-apply-id="${apply.id}">삭제</button>
+								<c:if test="${userId eq applyList.apply.userId}">
+									<button type="button" class="btn btn-danger deleteBtn" data-apply-id="${applyList.apply.id}">삭제</button>
 								</c:if>
 							</td>
 						</tr>
 					</c:forEach>
 				</table>
-				<button type="button" class="btn btn-success" id="applyCreateBtn">신청하기</button>
+				
 			</div>
 		</div>	
 	</div>
