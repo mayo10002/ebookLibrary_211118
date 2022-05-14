@@ -1,9 +1,11 @@
 package com.ebook.book.bo;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.ebook.book.dao.BookDAO;
 import com.ebook.book.model.Book;
@@ -38,5 +40,9 @@ public class BookBO {
 		int categoryId = getBookByBookId(borrowBO.getLatestBorrowBookId(userId)).getCategoryId();
 		return bookDAO.selectRecommendBookList(categoryId);
 		}
+	}
+	public int createBookByAdmin(String loginId, String name, String author, String publisher, Date publishDate ,
+			MultipartFile file, String isbn, Integer page, String info, int categoryId) {
+		
 	}
 }

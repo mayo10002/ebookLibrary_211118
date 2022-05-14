@@ -27,35 +27,35 @@
 					</div>
 					<div id="bookIsbnBox">
 						<span class="apply-font-design">isbn:</span>
-						<input type="text" id="bookIsbn" class="w-50 ml-4" placeholder="isbn을 입력하세요.">
+						<input type="number" id="bookIsbn" class="w-50 ml-4" placeholder="isbn을 입력하세요.">
 					</div>
+					
 					<div id="bookPageBox">
 						<span class="apply-font-design">페이지 수:</span>
-						<input type="number" id="bookPage" class="w-50 ml-4" placeholder="출판일을 선택하세요.">
+						<input type="number" id="bookPage" class="w-50 ml-4" placeholder="도서의 페이지 수를 선택하세요.">
 					</div>
 					<div id="bookInfoBox">
 						<span class="apply-font-design">책 정보:</span><br>
-						<textarea id="bookInfo" class="" placeholder="출판일을 선택하세요."></textarea>
+						<textarea id="bookInfo" class="" placeholder="책 정보를 입력하세요."></textarea>
 					</div>
 					<div id="bookCategoryBox">
-						<span class="apply-font-design">카테고리 선택:</span>
-						<label for="general"><input type="radio" name="category" value="1" id="general" checked>총류</label>
-      					<label for="philosophy"><input type="radio" name="category" value="2" id="philosophy">철학</label>
-      					<label for="religion"><input type="radio" name="category" value="3" id="religion">종교</label>
-      					<label for="socialScience"><input type="radio" name="category" value="4" id="socialScience">사회과학</label>
-      					<br>
-      					<label for="pureScience"><input type="radio" name="category" value="5" id="pureScience">자연과학</label>
-      					<label for="technology"><input type="radio" name="category" value="6" id="technology">기술과학</label>
-      					<label for="art"><input type="radio" name="category" value="7" id="art">예술</label>
-      					<label for="language"><input type="radio" name="category" value="8" id="language">언어</label>
-      					<br>
-      					<label for="literature"><input type="radio" name="category" value="9" id="literature">문학</label>
-      					<label for="history"><input type="radio" name="category" value="10" id="history">역사</label>
+      					<select id="categorySelect">
+						    <option value="1" selected>총류</option>
+						    <option value="2">철학</option>
+						    <option value="3">종교</option>
+						    <option value="4">사회과학</option>
+						    <option value="5">자연과학</option>
+						    <option value="6">기술과학</option>
+						    <option value="7">예술</option>
+						    <option value="8">언어</option>
+						    <option value="9">문학</option>
+						    <option value="10">역사</option>
+						</select>
 					</div>
 					<div id="fileUpload">
-						<input type="file" id="file" class="d-none" accept=".gif,.jpg,.jpeg,.png"> 
-						<a href="#" id="fileUploadBtn" > 
-						<img src="https://www.iconninja.com/files/505/794/492/image-icon.png" alt="이미지 삽입" width="30"></a>
+						<span class="apply-font-design">책 표지 이미지를 업로드해주세요.</span><br>
+						<input type="file" id="file" accept=".gif,.jpg,.jpeg,.png"> 
+						
 					</div>
 					<!-- 신청 / 취소 버튼 -->
 					<div class="d-flex justify-content-between">
@@ -82,14 +82,82 @@ $(document).ready(function(){
         ,title:"출판 날짜"
         //여기 수정 필요
       });
-	let bookname = $('#bookName').val().trim();
-	let bookAuthor = $('#bookAuthor').val().trim();
-	let bookPublisher = $('#bookPublisher').val().trim();
-	let bookPublishDate = $('#bookPublishDate').val().trim(); 
-	let bookIsbn = $('#bookIsbn').val().trim();
-	let bookPage = $('#bookPage').val().trim();
-	let bookInfo = $('#bookInfo').val();
-	let bookCategory =$('[name=category]').val();
+	$('#ApplyBtn').on('click',function(){
+		let bookName = $('#bookName').val().trim();
+		let bookAuthor = $('#bookAuthor').val().trim();
+		let bookPublisher = $('#bookPublisher').val().trim();
+		let bookPublishDate = $('#bookPublishDate').val().trim(); 
+		let bookIsbn = $('#bookIsbn').val().trim();
+		let bookPage = $('#bookPage').val().trim();
+		let bookInfo = $('#bookInfo').val();
+		let bookCategory =numSelect.options[document.getElementById("categorySelect").selectedIndex].value;
+		let file =  $('#file').val();
+		
+		//파일 유효성 검사
+		if(file != ""){
+			console.log(file.split(".")); //파일 경로룰 . 기준으로 잘라 배열에 저장한다.
+			let ext = file.split(".").pop().toLowerCase(); // 확장자를 뽑아내고 소문자로 변경. pop는 list 제일 마지막 칸을 뽑아온 것.
+			if($.inArray(ext, ['gif', 'png', 'jpg', 'jpeg']) == -1){
+				alert("gif, png, jpg, jpeg 확장자만 업로드 할 수 있습니다.");
+				$('#file').val(''); // 파일을 비운다.
+				return;
+			}
+			
+		}
+		if(bookName == ''){
+			alert('도서 제목이 입력되지 않았습니다.');
+			return;
+		}
+		if(bookAuthor == ''){
+			alert('도서 저자가 입력되지 않았습니다.');
+			return;
+		}
+		if(bookPublisher == ''){
+			alert('도서 출판사가 입력되지 않았습니다.');
+			return;
+		}
+		if(bookPublishDate == ''){
+			alert('도서 출판일이 입력되지 않았습니다.');
+			return;
+		}
+		if(file == ''){
+			alert('파일을 선택해주세요.');
+			return;
+		}
+		
+		let formData = new FormData();
+		formData.append("bookName" , bookName);
+		formData.append("bookAuthor" , bookAuthor);
+		formData.append("bookPublisher" , bookPublisher);
+		formData.append("bookPublishDate" , bookPublishDate);
+		formData.append("bookIsbn" , bookIsbn);
+		formData.append("bookPage" , bookPage);
+		formData.append("bookInfo" , bookInfo);
+		formData.append("bookCategory" , bookCategory);
+		formData.append("file", $('#file')[0].files[0]); // 첫번 째 것을 선택해서 올리는 것.
+		
+		$.ajax({
+			type:"post"
+			, url:"/admin/create"
+			, data: formData
+			, enctype: "multipart/form-data" 
+			, processData: false 
+			, contentType: false 
+			, success: function(data){
+				if(data.result == "success"){
+					location.reload();
+				}else{
+					alert(data.error_message);
+				}
+			}
+			, error: function(e){
+				alert("게시에 실패했습니다. 관리자에게 문의해주세요.");
+			}
+		});
+	});
+	
+	
+	
 	
 });
 

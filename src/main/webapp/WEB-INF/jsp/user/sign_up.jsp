@@ -137,7 +137,7 @@ $(document).ready(function(){
 		    ,processData : false
 		    ,success : function(data){
 		    	if(data.result == "success"){
-		    		alert("성공");
+		    		alert("회원가입이 완료되었습니다. 로그인해주세요.");
 		    		location.href ="/user/sign_in_view";
 		    	}
 		    }
