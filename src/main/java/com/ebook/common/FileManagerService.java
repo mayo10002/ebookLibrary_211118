@@ -10,8 +10,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 @Component
 public class FileManagerService {
-	//public final static String FILE_UPLOAD_PATH = "C:\\Users\\mayo1\\Desktop\\web\\6_spring_project\\ebook_library\\workspace\\images/";
-	public final static String FILE_UPLOAD_PATH = "/home/ec2-user/images/";
+	public final static String FILE_UPLOAD_PATH = "C:\\Users\\mayo1\\Desktop\\web\\6_spring_project\\ebook_library\\workspace\\images/";
+	//public final static String FILE_UPLOAD_PATH = "/home/ec2-user/images/";
 
 	// input: file, output:imagePath
 	public String saveFile(String loginId, MultipartFile file) throws IOException {

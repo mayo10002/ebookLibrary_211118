@@ -1,16 +1,17 @@
 package com.ebook.admin;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import com.ebook.book.bo.BookBO;
 
 @RequestMapping("/admin")
 @Controller
 public class AdminController {
-	@Autowired
-	private BookBO bookBO; 
-	
+	@RequestMapping("/apply_insert_view")
+	public String insertBookView(Model model) {
+		
+		model.addAttribute("viewName","admin/book_create");
+		return "template/layout";
+	}
 	
 }

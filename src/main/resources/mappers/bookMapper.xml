@@ -108,4 +108,37 @@ SET
 WHERE
 	`id` = #{id} 
  </update>
+ <insert id="insertBookByAdmin" parameterType="map">
+ INSERT INTO `book`
+ (
+ 	`name`
+	,`author`
+	,`publisher`
+	,`publishDate`
+	,`imagePath`
+	,`isbn`
+	,`page`
+	,`state`
+	,`info`
+	,`categoryId`
+	,`createdAt`
+	,`updatedAt`
+ )
+ VALUES
+ (
+	#{name}
+	,#{author}
+	,#{publisher}
+	,#{publishDate}
+	,#{imagePath}
+	,#{isbn}
+	,#{page}
+	,'대출 가능'
+	,#{info}
+	,#{categoryId}
+	,NOW()
+	,NOW()
+ )
+ 
+ </insert>
  </mapper>

@@ -44,6 +44,10 @@
 				<button type="button" id="applyCreateViewBtn" class="btn btn-primary w-100 m-2">희망 도서 신청</button>
 			</c:if>
 			<button type="button" id="applyListViewBtn" class="btn btn-primary w-100 m-2">희망 도서 신청 목록</button>
+			<c:if test="${userLoginId eq 'admin'}">
+				<div><span class="d-3 font-weight-bold  m-2">도서를 추가하세요.</span></div>
+				<button type="button" id="adminCreateViewBtn" class="btn btn-danger w-100 m-2">도서 추가</button>
+			</c:if>
 		</div> 
 	</div>
 </div>
@@ -59,6 +63,9 @@ $(document).ready(function(){
 	});
 	$('#applyListViewBtn').on('click',function(e){
 		location.href="/apply/apply_list_view";
+	});
+	$('#adminCreateViewBtn').on('click',function(e){
+		location.href="/admin/apply_insert_view";
 	});
 });
 </script>

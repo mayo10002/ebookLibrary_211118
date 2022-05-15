@@ -1,6 +1,7 @@
 package com.ebook.admin;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -34,22 +35,30 @@ public class AdminRestController {
 			@RequestParam("bookCategory")String bookCategory,
 			@RequestParam(value="file", required=false) MultipartFile file,
 			HttpSession session 
-			){
+			) throws ParseException{
 		Map<String, Object> result = new HashMap<>();
 		
 		String loginId = (String)session.getAttribute("userLoginId");
-		if (loginId != "admin") {
+		if (loginId.equals("admin") == false) {
 			result.put("result", "error");
 			result.put("error_message", "관리자 권한이 아닙니다.");
 			return result;
 		}
-		DateFormat dateFormat = new SimpleDateFormat ("yyyy-MM-dd");
+		DateFormat dateFormat = new SimpleDateFormat ("dd/MM/yyyy");
 		Date bookPublishdate = dateFormat.parse(bookPublishDate);
 
 		Integer bookpage = Integer.parseInt(bookPage);
 		int bookcategory2 = Integer.parseInt(bookCategory);
 		
-		int row = bookBO
+		int row = bookBO.addBookByAdmin(loginId, bookName, bookAuthor, bookPublisher,
+				bookPublishdate, file, bookIsbn, bookpage, bookInfo, bookcategory2);
+		if(row < 1) {
+			result.put("result", "error");
+			result.put("error_message", "도서 추가에 실패했습니다.");
+		}else {
+			result.put("result", "success");
+		}
+		return result;
 	}
 	
 }

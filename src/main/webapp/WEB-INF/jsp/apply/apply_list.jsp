@@ -6,7 +6,12 @@
 	<div class="width-fix">
 		<div class="d-flex justify-content-center">
 			<div id="applyList" class="small-width">
-			<button type="button" class="btn btn-success my-3" id="applyCreateBtn">신청하기</button><br>
+			<div class="d-flex justify-content-between">
+				<button type="button" class="btn btn-success my-3" id="applyCreateBtn">신청하기</button>
+				<c:if test="${userLoginId eq 'admin'}">
+					<button type="button" class="btn btn-danger my-3" id="adminCreateBtn">도서 추가하기</button>
+				</c:if>
+			</div>
 				<table id="apply-book" class="table text-center w-100" >
 					<tr>
 						<th>번호</th>
@@ -60,6 +65,10 @@ $(document).ready(function(){
 	$('#applyCreateBtn').on('click',function(e){
 		location.href="/apply/apply_create_view";
 	});
+	$('#adminCreateBtn').on('click',function(e){
+		location.href="/admin/apply_insert_view";
+		
+	})
 	
 });
 </script>
