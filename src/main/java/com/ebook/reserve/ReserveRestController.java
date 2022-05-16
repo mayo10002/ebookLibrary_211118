@@ -58,7 +58,7 @@ public class ReserveRestController {
 		int row = reserveBO.deleteReserve(userId, bookId);
 		if (row < 1) {
 			result.put("result", "error");
-			result.put("error_message", "반납에 실패했습니다.");
+			result.put("error_message", "예약 취소에 실패했습니다.");
 		} else {
 			result.put("result", "success");
 		}

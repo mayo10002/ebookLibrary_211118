@@ -14,7 +14,7 @@ footer {height:100px; color: gray;}
 #resultBookInfo{width:400px;}
 .latest-book {padding:5px; padding-left:10px; width:200px; height:300px; border-radius:10px; background-color:#eee;}
 .recommend-book {padding:5px; width:200px; height:300px; border-radius:10px; background-color:#eee;}
-#userSelect {min-height:300px; box-shadow:0px 0px 20px gray; border-radius:10px;}
+#userSelect {height:500px; box-shadow:0px 0px 20px gray; border-radius:10px;}
 .mypage-box-width{width:700px;}
 .apply-font-design {font-weight:bold; font-size:15px;}
 .apply-box-size {width:120px; height:30px;}
@@ -29,3 +29,4 @@ footer {height:100px; color: gray;}
 
 a {text-decoration:none;color:black;}
 a :hover {text-decoration:none; color:darkblue;}
+

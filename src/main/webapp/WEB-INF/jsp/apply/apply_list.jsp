@@ -7,7 +7,9 @@
 		<div class="d-flex justify-content-center">
 			<div id="applyList" class="small-width">
 			<div class="d-flex justify-content-between">
-				<button type="button" class="btn btn-success my-3" id="applyCreateBtn">신청하기</button>
+				<c:if test="${not empty userName}">
+					<button type="button" class="btn btn-success my-3" id="applyCreateBtn">신청하기</button>
+				</c:if>
 				<c:if test="${userLoginId eq 'admin'}">
 					<button type="button" class="btn btn-danger my-3" id="adminCreateBtn">도서 추가하기</button>
 				</c:if>
